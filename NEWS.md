@@ -1,6 +1,7 @@
 # nanoscopeAFM 2.0.9
 
 * Allow to extract different channels using `AFM.getLine`
+* Update descriptions and examples
 
 
 # nanoscopeAFM 2.0.8

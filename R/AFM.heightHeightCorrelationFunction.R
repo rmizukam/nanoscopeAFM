@@ -36,7 +36,8 @@
 #' a = AFM.import(filename)
 #' a = AFM.flatten(a)
 #' r = AFM.hhcf(a, dataOnly = TRUE)
-#' head(r)
+#' head(r)                          # output HHCF data
+#' AFM.hhcf(a, dataOnly = FALSE)    # output graph
 #'
 ##################################################
 #' @export
