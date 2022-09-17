@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoscopeAFM</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.9</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.10</span>
       </span>
     </div>
 
@@ -39,6 +39,9 @@
     </li>
     <li>
       <a href="../articles/AFM-imageSummary.html">AFM Image Summary</a>
+    </li>
+    <li>
+      <a href="../articles/Height-Height-Correlation-Function.html">Height-Height-Correlation-Function</a>
     </li>
     <li>
       <a href="../articles/LineProfiles.html">Line Profiles</a>
@@ -69,17 +72,20 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">AFMinfo</span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AFMinfo</span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>filename</dt>
 <dd><p>full file name of instrument AFM file</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>AFMinfo class object</p>
+    
+
+<p>AFMinfo class object</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -88,9 +94,9 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">filename</span> <span class="op">=</span> <span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'003'</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">h</span> <span class="op">=</span> <span class="fu">AFMinfo</span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">h</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">filename</span> <span class="op">=</span> <span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'003'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">h</span> <span class="op">=</span> <span class="fu">AFMinfo</span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">h</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> AFM image type:   Veeco </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Resolution:       512 x 512 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Channels:         0 </span>
@@ -112,7 +118,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -24,7 +24,7 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013)."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoscopeAFM</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.9</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.10</span>
       </span>
     </div>
 
@@ -46,6 +46,9 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013)."><meta property="og:im
     </li>
     <li>
       <a href="../articles/AFM-imageSummary.html">AFM Image Summary</a>
+    </li>
+    <li>
+      <a href="../articles/Height-Height-Correlation-Function.html">Height-Height-Correlation-Function</a>
     </li>
     <li>
       <a href="../articles/LineProfiles.html">Line Profiles</a>
@@ -83,45 +86,64 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">AFM.hhcf</span><span class="op">(</span>
-  <span class="va">obj</span>,
-  no <span class="op">=</span> <span class="fl">1</span>,
-  degRes <span class="op">=</span> <span class="fl">100</span>,
-  numIterations <span class="op">=</span> <span class="fl">1000</span>,
-  addFit <span class="op">=</span> <span class="cn">TRUE</span>,
-  dataOnly <span class="op">=</span> <span class="cn">FALSE</span>,
-  r.percentage <span class="op">=</span> <span class="fl">80</span>,
-  xi.percentage <span class="op">=</span> <span class="fl">70</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AFM.hhcf</span><span class="op">(</span></span>
+<span>  <span class="va">obj</span>,</span>
+<span>  no <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  degRes <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  numIterations <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  addFit <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  dataOnly <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  r.percentage <span class="op">=</span> <span class="fl">80</span>,</span>
+<span>  xi.percentage <span class="op">=</span> <span class="fl">70</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>obj</dt>
 <dd><p>AFMdata object</p></dd>
+
+
 <dt>no</dt>
 <dd><p>Channel number</p></dd>
+
+
 <dt>degRes</dt>
 <dd><p>resolution of angle, the higher the more, should be &gt;100, 1000 is also good</p></dd>
+
+
 <dt>numIterations</dt>
 <dd><p>Number of iterations (must be &gt; 1000), but 1e6 recommended</p></dd>
+
+
 <dt>addFit</dt>
 <dd><p>if <code>TRUE</code> a fit is added to the data</p></dd>
+
+
 <dt>dataOnly</dt>
 <dd><p>if <code>TRUE</code> only return data frame, otherwise returns a graph</p></dd>
+
+
 <dt>r.percentage</dt>
 <dd><p>a number from 10 to 100 representing the distance to compute, since the image is
-square, there are not as many points that are separate by the full lenght, 80 is a good value, if there
+square, there are not as many points that are separated by the full length, 80 is a good value, if there
 is no fit, the value can be reduced to 70 or 60.</p></dd>
+
+
 <dt>xi.percentage</dt>
 <dd><p>a number from 10 to 100 representing where correlation length could be found from maximum (used for fitting)</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>output time if <code>TRUE</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>graph or data frame with g(r) and $num indicating number of computations used for r</p>
+    
+
+<p>graph or data frame with g(r) and $num indicating number of computations used for r</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -130,19 +152,21 @@ is no fit, the value can be reduced to 70 or 60.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">filename</span> <span class="op">=</span> <span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'tiff'</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="AFM.flatten.html">AFM.flatten</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r</span> <span class="op">=</span> <span class="fu">AFM.hhcf</span><span class="op">(</span><span class="va">a</span>, dataOnly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        r.nm          g num</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.803922 0.07866313 995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.607843 0.21418975 988</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.411765 0.37047876 988</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 39.215686 0.50768112 985</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 49.019608 0.60445234 981</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 58.823529 0.71357452 978</span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">filename</span> <span class="op">=</span> <span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'tiff'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="AFM.flatten.html">AFM.flatten</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r</span> <span class="op">=</span> <span class="fu">AFM.hhcf</span><span class="op">(</span><span class="va">a</span>, numIterations <span class="op">=</span> <span class="fl">1e5</span>, dataOnly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span>                          <span class="co"># output HHCF data</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        r.nm          g   num</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.803922 0.08641012 99757</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.607843 0.21767244 99320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.411765 0.36622620 98835</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 39.215686 0.50081193 98362</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 49.019608 0.61185257 97873</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 58.823529 0.69090408 97355</span>
+<span class="r-in"><span><span class="fu">AFM.hhcf</span><span class="op">(</span><span class="va">a</span>, dataOnly <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>    <span class="co"># output graph</span></span></span>
+<span class="r-plt img"><img src="AFM.hhcf-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -157,7 +181,7 @@ is no fit, the value can be reduced to 70 or 60.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

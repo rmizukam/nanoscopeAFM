@@ -40,7 +40,8 @@ Use this package to generate `AFMdata` S4 data objects, which can be used to qui
 Creating an `AFMdata` data object, then output a graph and output a summary of characteristics:
 
 ```R
-d = AFM.import(AFM.getSampleImages(type='ibw'))
+fileAFM = AFM.getSampleImages(type='ibw')[1]
+d = AFM.import(fileAFM)
 class(d)
 plot(d)
 print(d)

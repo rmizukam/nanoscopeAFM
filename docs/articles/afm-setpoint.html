@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoscopeAFM</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.9</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.10</span>
       </span>
     </div>
 
@@ -68,6 +68,9 @@
     </li>
     <li>
       <a href="../articles/AFM-imageSummary.html">AFM Image Summary</a>
+    </li>
+    <li>
+      <a href="../articles/Height-Height-Correlation-Function.html">Height-Height-Correlation-Function</a>
     </li>
     <li>
       <a href="../articles/LineProfiles.html">Line Profiles</a>
@@ -107,47 +110,53 @@
 <div class="section level2">
 <h2 id="finding-the-setpoint">Finding the Setpoint<a class="anchor" aria-label="anchor" href="#finding-the-setpoint"></a>
 </h2>
-<p>You can find the setpoint and other information about an AFM image by retrieving the <code>AFMinfo</code>. Here is an example:</p>
+<p>You can find the setpoint and other information about an AFM image by
+retrieving the <code>AFMinfo</code>. Here is an example:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thomasgredig.github.io/nanoscopeAFM/">nanoscopeAFM</a></span><span class="op">)</span>
-
-<span class="co"># loading the test file from the nanoscopeAFM package</span>
-<span class="va">filename</span> <span class="op">=</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,<span class="st">"AR_20211011.ibw"</span>,package<span class="op">=</span><span class="st">"nanoscopeAFM"</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># retrieving an AFMinfo object</span>
-<span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFMinfo.html">AFMinfo</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></code></pre></div>
-<p>Basic information about an image can also be viewed, once you have an <code>AFMinfo</code> object:</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thomasgredig.github.io/nanoscopeAFM/">nanoscopeAFM</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Please cite nanoscopeAFM ,see https://doi.org/10.5281/zenodo.5770772</span></span>
+<span></span>
+<span><span class="co"># loading the test file from the nanoscopeAFM package</span></span>
+<span><span class="va">filename</span> <span class="op">=</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,<span class="st">"AR_20211011.ibw"</span>,package<span class="op">=</span><span class="st">"nanoscopeAFM"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># retrieving an AFMinfo object</span></span>
+<span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFMinfo.html">AFMinfo</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span></code></pre></div>
+<p>Basic information about an image can also be viewed, once you have an
+<code>AFMinfo</code> object:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># generate a summary of the AFMinfo object</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">h</span><span class="op">)</span>
-<span class="co">#&gt; AFM image type:   Cypher </span>
-<span class="co">#&gt; Resolution:       128 x 128 </span>
-<span class="co">#&gt; Channels:         4 </span>
-<span class="co">#&gt; Scan rate (Hz):   2.0032 </span>
-<span class="co">#&gt; Scan Angle (deg): </span>
-<span class="co">#&gt; Notes:            KC200, FePc, KC20170720Si,KC20170720Si_KC20 </span>
-<span class="co">#&gt; Data Items:       706</span></code></pre></div>
-<p>Finding additional special information, using the function <code>AFMinfo.item</code>; note that the search string is case-sensitive.</p>
+<code class="sourceCode R"><span><span class="co"># generate a summary of the AFMinfo object</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">h</span><span class="op">)</span></span>
+<span><span class="co">#&gt; AFM image type:   Cypher </span></span>
+<span><span class="co">#&gt; Resolution:       128 x 128 </span></span>
+<span><span class="co">#&gt; Channels:         4 </span></span>
+<span><span class="co">#&gt; Scan rate (Hz):   2.0032 </span></span>
+<span><span class="co">#&gt; Scan Angle (deg): </span></span>
+<span><span class="co">#&gt; Notes:            KC200, FePc, KC20170720Si,KC20170720Si_KC20 </span></span>
+<span><span class="co">#&gt; Data Items:       706</span></span></code></pre></div>
+<p>Finding additional special information, using the function
+<code>AFMinfo.item</code>; note that the search string is
+case-sensitive.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sp</span> <span class="op">=</span>  <span class="fu"><a href="../reference/AFMinfo.item.html">AFMinfo.item</a></span><span class="op">(</span><span class="va">h</span>, <span class="st">'Setpoint'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Setpoint:"</span>,<span class="va">sp</span>,<span class="st">"V"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Setpoint:  0.74347 V"</span></code></pre></div>
-<p>The names of the items can be found with the same function; here is a list of the first few item names that can be used:</p>
+<code class="sourceCode R"><span><span class="va">sp</span> <span class="op">=</span>  <span class="fu"><a href="../reference/AFMinfo.item.html">AFMinfo.item</a></span><span class="op">(</span><span class="va">h</span>, <span class="st">'Setpoint'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Setpoint:"</span>,<span class="va">sp</span>,<span class="st">"V"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Setpoint:  0.74347 V"</span></span></code></pre></div>
+<p>The names of the items can be found with the same function; here is a
+list of the first few item names that can be used:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">allNames</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFMinfo.item.html">AFMinfo.item</a></span><span class="op">(</span><span class="va">h</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">allNames</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "ScanSize"         "FastScanSize"     "SlowScanSize"     "ScanRate"        </span>
-<span class="co">#&gt;  [5] "XOffset"          "YOffset"          "PointsLines"      "ScanPoints"      </span>
-<span class="co">#&gt;  [9] "ScanLines"        "ScanAngle"        "ImagingMode"      "InvOLS"          </span>
-<span class="co">#&gt; [13] "SpringConstant"   "AmpInvOLS"        "Amp2Invols"       "FastRatio"       </span>
-<span class="co">#&gt; [17] "SlowRatio"        "TopLine"          "BottomLine"       "ScanMode"        </span>
-<span class="co">#&gt; [21] "NapMode"          "FMapScanTime"     "FMapScanPoints"   "FMapScanLines"   </span>
-<span class="co">#&gt; [25] "FMapXYVelocity"   "FMapBookWise"     "Channel1DataType" "DataTypeSum"     </span>
-<span class="co">#&gt; [29] "PhaseOffset"      "PhaseOffset1"     "NapPhaseOffset"   "VoltageParm"     </span>
-<span class="co">#&gt; [33] "NapParms"         "PreScanSetting"   "OrcaOffset"       "OrcaOffset2"     </span>
-<span class="co">#&gt; [37] "UserIn0Gain"      "UserIn0Offset"    "UserIn1Gain"      "UserIn1Offset"   </span>
-<span class="co">#&gt; [41] "UserIn2Gain"      "UserIn2Offset"    "LateralGain"      "LateralOffset"   </span>
-<span class="co">#&gt; [45] "OrcaGain"         "OrcaGain2"        "FastMapScanRate"  "FastMapZRate"    </span>
-<span class="co">#&gt; [49] "dcdvPhaseOffset"  "dcdZPhaseOffset"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">allNames</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFMinfo.item.html">AFMinfo.item</a></span><span class="op">(</span><span class="va">h</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">allNames</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "ScanSize"         "FastScanSize"     "SlowScanSize"     "ScanRate"        </span></span>
+<span><span class="co">#&gt;  [5] "XOffset"          "YOffset"          "PointsLines"      "ScanPoints"      </span></span>
+<span><span class="co">#&gt;  [9] "ScanLines"        "ScanAngle"        "ImagingMode"      "InvOLS"          </span></span>
+<span><span class="co">#&gt; [13] "SpringConstant"   "AmpInvOLS"        "Amp2Invols"       "FastRatio"       </span></span>
+<span><span class="co">#&gt; [17] "SlowRatio"        "TopLine"          "BottomLine"       "ScanMode"        </span></span>
+<span><span class="co">#&gt; [21] "NapMode"          "FMapScanTime"     "FMapScanPoints"   "FMapScanLines"   </span></span>
+<span><span class="co">#&gt; [25] "FMapXYVelocity"   "FMapBookWise"     "Channel1DataType" "DataTypeSum"     </span></span>
+<span><span class="co">#&gt; [29] "PhaseOffset"      "PhaseOffset1"     "NapPhaseOffset"   "VoltageParm"     </span></span>
+<span><span class="co">#&gt; [33] "NapParms"         "PreScanSetting"   "OrcaOffset"       "OrcaOffset2"     </span></span>
+<span><span class="co">#&gt; [37] "UserIn0Gain"      "UserIn0Offset"    "UserIn1Gain"      "UserIn1Offset"   </span></span>
+<span><span class="co">#&gt; [41] "UserIn2Gain"      "UserIn2Offset"    "LateralGain"      "LateralOffset"   </span></span>
+<span><span class="co">#&gt; [45] "OrcaGain"         "OrcaGain2"        "FastMapScanRate"  "FastMapZRate"    </span></span>
+<span><span class="co">#&gt; [49] "dcdvPhaseOffset"  "dcdZPhaseOffset"</span></span></code></pre></div>
 </div>
   </div>
 
@@ -168,7 +177,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

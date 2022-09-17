@@ -18,7 +18,7 @@ the description, channel, image size, history, and filename"><meta property="og:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoscopeAFM</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.9</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.10</span>
       </span>
     </div>
 
@@ -40,6 +40,9 @@ the description, channel, image size, history, and filename"><meta property="og:
     </li>
     <li>
       <a href="../articles/AFM-imageSummary.html">AFM Image Summary</a>
+    </li>
+    <li>
+      <a href="../articles/Height-Height-Correlation-Function.html">Height-Height-Correlation-Function</a>
     </li>
     <li>
       <a href="../articles/LineProfiles.html">Line Profiles</a>
@@ -71,20 +74,25 @@ the description, channel, image size, history, and filename</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for AFMdata</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for AFMdata</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>AFMdata object</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other arguments</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>text with object information</p>
+    
+
+<p>text with object information</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -93,14 +101,14 @@ the description, channel, image size, history, and filename</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">d</span> <span class="op">=</span> <span class="fu"><a href="AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'ibw'</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d</span> <span class="op">=</span> <span class="fu"><a href="AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'ibw'</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Object:      Cypher AFM Image </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Description: KC200, FePc, KC20170720Si </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Channel:     HeightRetrace AmplitudeRetrace PhaseRetrace ZSensorRetrace </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              4000 nm  x  4000 nm </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> History:      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Filename:    /private/var/folders/n7/c8bjcf7n25g74wqr3_7cgpvh0000gt/T/RtmpXAJ3sB/temp_libpath10634bd1ed79/nanoscopeAFM/extdata/AR_20211011.ibw</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Filename:    /private/var/folders/n7/c8bjcf7n25g74wqr3_7cgpvh0000gt/T/RtmpY7B6tl/temp_libpath2ed8383980e1/nanoscopeAFM/extdata/AR_20211011.ibw</span>
 </code></pre></div>
     </div>
   </div>
@@ -115,7 +123,7 @@ the description, channel, image size, history, and filename</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

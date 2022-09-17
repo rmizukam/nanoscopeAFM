@@ -20,7 +20,7 @@
 #' @param addFit if \code{TRUE} a fit is added to the data
 #' @param numIterations Number of iterations (must be > 1000), but 1e6 recommended
 #' @param r.percentage a number from 10 to 100 representing the distance to compute, since the image is
-#'    square, there are not as many points that are separate by the full lenght, 80 is a good value, if there
+#'    square, there are not as many points that are separated by the full length, 80 is a good value, if there
 #'    is no fit, the value can be reduced to 70 or 60.
 #' @param xi.percentage a number from 10 to 100 representing where correlation length could be found from maximum (used for fitting)
 #' @param dataOnly if \code{TRUE} only return data frame, otherwise returns a graph
@@ -35,7 +35,7 @@
 #' filename = AFM.getSampleImages(type='tiff')
 #' a = AFM.import(filename)
 #' a = AFM.flatten(a)
-#' r = AFM.hhcf(a, dataOnly = TRUE)
+#' r = AFM.hhcf(a, numIterations = 5e5, dataOnly = TRUE)
 #' head(r)                          # output HHCF data
 #' AFM.hhcf(a, dataOnly = FALSE)    # output graph
 #'

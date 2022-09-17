@@ -1,3 +1,8 @@
+# nanoscopeAFM 2.0.10
+
+* Update the Vignettes and Documentation
+* Height-Height Correlation Function Documentation
+
 # nanoscopeAFM 2.0.9
 
 * Allow to extract different channels using `AFM.getLine`

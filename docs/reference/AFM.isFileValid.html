@@ -18,7 +18,7 @@ Igor Wavefile, Nanoscope Veeco file, Park AFM file, or Nanosurf file"><meta prop
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoscopeAFM</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.9</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.10</span>
       </span>
     </div>
 
@@ -40,6 +40,9 @@ Igor Wavefile, Nanoscope Veeco file, Park AFM file, or Nanosurf file"><meta prop
     </li>
     <li>
       <a href="../articles/AFM-imageSummary.html">AFM Image Summary</a>
+    </li>
+    <li>
+      <a href="../articles/Height-Height-Correlation-Function.html">Height-Height-Correlation-Function</a>
     </li>
     <li>
       <a href="../articles/LineProfiles.html">Line Profiles</a>
@@ -71,17 +74,20 @@ Igor Wavefile, Nanoscope Veeco file, Park AFM file, or Nanosurf file</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">AFM.isFileValid</span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AFM.isFileValid</span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>filename</dt>
 <dd><p>filename with full path</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>TRUE</code> if filename is a supported AFM image</p>
+    
+
+<p><code>TRUE</code> if filename is a supported AFM image</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -90,7 +96,7 @@ Igor Wavefile, Nanoscope Veeco file, Park AFM file, or Nanosurf file</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">AFM.isFileValid</span><span class="op">(</span><span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">AFM.isFileValid</span><span class="op">(</span><span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 </code></pre></div>
     </div>
@@ -106,7 +112,7 @@ Igor Wavefile, Nanoscope Veeco file, Park AFM file, or Nanosurf file</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -30,7 +30,7 @@ AFM.hhcf(
 \item{dataOnly}{if \code{TRUE} only return data frame, otherwise returns a graph}
 
 \item{r.percentage}{a number from 10 to 100 representing the distance to compute, since the image is
-square, there are not as many points that are separate by the full lenght, 80 is a good value, if there
+square, there are not as many points that are separated by the full length, 80 is a good value, if there
 is no fit, the value can be reduced to 70 or 60.}
 
 \item{xi.percentage}{a number from 10 to 100 representing where correlation length could be found from maximum (used for fitting)}
@@ -54,7 +54,7 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).
 filename = AFM.getSampleImages(type='tiff')
 a = AFM.import(filename)
 a = AFM.flatten(a)
-r = AFM.hhcf(a, dataOnly = TRUE)
+r = AFM.hhcf(a, numIterations = 1e5, dataOnly = TRUE)
 head(r)                          # output HHCF data
 AFM.hhcf(a, dataOnly = FALSE)    # output graph
 
