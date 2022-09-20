@@ -54,7 +54,7 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).
 filename = AFM.getSampleImages(type='tiff')
 a = AFM.import(filename)
 a = AFM.flatten(a)
-r = AFM.hhcf(a, numIterations = 1e5, dataOnly = TRUE)
+r = AFM.hhcf(a, numIterations = 5e5, dataOnly = TRUE)
 head(r)                          # output HHCF data
 AFM.hhcf(a, dataOnly = FALSE)    # output graph
 

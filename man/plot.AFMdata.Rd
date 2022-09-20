@@ -15,6 +15,7 @@
   redBlue = FALSE,
   verbose = FALSE,
   quiet = FALSE,
+  setRange = c(0, 0),
   ...
 )
 }
@@ -29,6 +30,8 @@
 
 \item{trimPeaks}{value from 0 to 1, where 0=trim 0\% and 1=trim 100\% of data points, generally a value less than 0.01 is useful to elevate the contrast of the image}
 
+\item{fillOption}{can be one of 8 color palettes, use "A" ... "H"}
+
 \item{addLines}{if \code{TRUE} lines from obj are added to graph, lines can be added with \code{\link{AFM.lineProfile}} for example}
 
 \item{redBlue}{if \code{TRUE} output red / blue color scheme}
@@ -36,6 +39,8 @@
 \item{verbose}{if \code{TRUE} it outputs additional information.}
 
 \item{quiet}{if \code{TRUE} then no output at all}
+
+\item{setRange}{vector with two values, such as c(-30,30) to make the scale from -30 to +30}
 
 \item{...}{other arguments}
 }
@@ -48,6 +53,7 @@ By default, trims 1 percent of the outliers in height data
 \examples{
 d = AFM.import(AFM.getSampleImages(type='ibw')[1])
 plot(d, graphType=2)
+plot(d, fillOption = "magma", setRange=c(-30,30))
 }
 \seealso{
 \code{\link{AFM.lineProfile}}

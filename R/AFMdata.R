@@ -287,6 +287,8 @@ AFM.raster <- function(obj,no=1) {
 #' @param trimPeaks value from 0 to 1, where 0=trim 0\% and 1=trim 100\% of data points, generally a value less than 0.01 is useful to elevate the contrast of the image
 #' @param addLines if \code{TRUE} lines from obj are added to graph, lines can be added with \code{\link{AFM.lineProfile}} for example
 #' @param redBlue if \code{TRUE} output red / blue color scheme
+#' @param fillOption can be one of 8 color palettes, use "A" ... "H"
+#' @param setRange vector with two values, such as c(-30,30) to make the scale from -30 to +30
 #' @param verbose if \code{TRUE} it outputs additional information.
 #' @param quiet if \code{TRUE} then no output at all
 #' @param ... other arguments
@@ -304,8 +306,9 @@ AFM.raster <- function(obj,no=1) {
 #' @examples
 #' d = AFM.import(AFM.getSampleImages(type='ibw')[1])
 #' plot(d, graphType=2)
+#' plot(d, fillOption = "magma", setRange=c(-30,30))
 #' @export
-plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOption='viridis', addLines=FALSE, redBlue = FALSE, verbose=FALSE, quiet=FALSE, ...) {
+plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOption='viridis', addLines=FALSE, redBlue = FALSE, verbose=FALSE, quiet=FALSE, setRange = c(0,0), ...) {
   if (no>length(x@channel)) stop("imageNo out of bounds.")
   if (!quiet) cat("Graphing:",x@channel[no])
   if (verbose) print(paste("History:",x@history))
@@ -325,6 +328,12 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
     d$z[which(d$z>upperBound)] <- upperBound
   }
 
+  # bit of a hack to set the range
+  if (!(setRange[1]==0 & setRange[2]==0)) {
+    d$z[1]=setRange[1]
+    d$z[2]=setRange[2]
+  }
+
   if (addLines) {
     # check if there are lines
     if (is.null(x@data$line)) { warning("No lines attached.") }
@@ -341,7 +350,7 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
   if (verbose) print(paste("z range: ",min(d$z)," to ",max(d$z)," midpoint",mpt))
   if (redBlue) sFill = scale_fill_gradient2(low='red', mid='white', high='blue', midpoint=mpt)
   else sFill = scale_fill_viridis(option=fillOption)
-  
+
   if (graphType==1) {
     g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
       geom_raster() +

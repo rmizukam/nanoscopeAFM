@@ -90,3 +90,30 @@ gAll = plot_grid(g1, g2, g3, g4,
 ggdraw(add_sub(gAll, "(a) height, (b) amplitude, (c) phase, (d) z sensor",x=0.1, hjust=0))
 ```
 
+
+## Changing the Color Palette
+
+You can use the `fillOption` option to change the color palette, see also `? scale_fill_viridis`. There are 8 options:
+
+
+```{r}
+plot(afmd, graphType = 1, fillOption = "magma")
+plot(afmd, graphType = 1, fillOption = "inferno")
+plot(afmd, graphType = 1, fillOption = "plasma")
+plot(afmd, graphType = 1, fillOption = "viridis")
+```
+
+```{r}
+plot(afmd, graphType = 1, fillOption = "cividis")
+plot(afmd, graphType = 1, fillOption = "rocket")
+plot(afmd, graphType = 1, fillOption = "mako")
+plot(afmd, graphType = 1, fillOption = "turbo")
+```
+
+
+## Adjusting the scale
+
+```{r}
+plot(afmd)
+plot(afmd, setRange=c(-50,50))
+```

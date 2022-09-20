@@ -84,6 +84,7 @@
 <span>  redBlue <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  setRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -110,6 +111,10 @@
 <dd><p>value from 0 to 1, where 0=trim 0% and 1=trim 100% of data points, generally a value less than 0.01 is useful to elevate the contrast of the image</p></dd>
 
 
+<dt>fillOption</dt>
+<dd><p>can be one of 8 color palettes, use "A" ... "H"</p></dd>
+
+
 <dt>addLines</dt>
 <dd><p>if <code>TRUE</code> lines from obj are added to graph, lines can be added with <code><a href="AFM.lineProfile.html">AFM.lineProfile</a></code> for example</p></dd>
 
@@ -124,6 +129,10 @@
 
 <dt>quiet</dt>
 <dd><p>if <code>TRUE</code> then no output at all</p></dd>
+
+
+<dt>setRange</dt>
+<dd><p>vector with two values, such as c(-30,30) to make the scale from -30 to +30</p></dd>
 
 
 <dt>...</dt>
@@ -151,6 +160,9 @@
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span>, graphType<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Graphing: HeightRetrace</span>
 <span class="r-plt img"><img src="plot.AFMdata-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span>, fillOption <span class="op">=</span> <span class="st">"magma"</span>, setRange<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">30</span>,<span class="fl">30</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Graphing: HeightRetrace</span>
+<span class="r-plt img"><img src="plot.AFMdata-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

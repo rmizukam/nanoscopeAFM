@@ -2,6 +2,7 @@
 
 * Update the Vignettes and Documentation
 * Height-Height Correlation Function Documentation
+* Adding AFM image range adjustment
 
 # nanoscopeAFM 2.0.9
 
