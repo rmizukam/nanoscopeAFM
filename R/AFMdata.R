@@ -283,7 +283,7 @@ AFM.raster <- function(obj,no=1) {
 #' @param x AFMdata object
 #' @param no channel number of the image
 #' @param mpt midpoint for coloring
-#' @param graphType 1 = graph with legend outside, 2 = square graph with line bar, 3 = plain graph
+#' @param graphType 1 = graph with legend outside, 2 = square graph with line bar, 3 = plain graph, 4 = plain graph with scale
 #' @param trimPeaks value from 0 to 1, where 0=trim 0\% and 1=trim 100\% of data points, generally a value less than 0.01 is useful to elevate the contrast of the image
 #' @param addLines if \code{TRUE} lines from obj are added to graph, lines can be added with \code{\link{AFM.lineProfile}} for example
 #' @param redBlue if \code{TRUE} output red / blue color scheme
@@ -411,7 +411,37 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank())
 
-  } else stop('graphType is not supported.')
+  }else if (graphType==4) {
+    # figure out coordinates for line
+    bar.length = signif(x@x.nm*0.2,2)  # nm
+    bar.x.start = 0.05*x@x.pixels * x@x.conv
+    bar.y.start = 0.05*x@y.pixels * x@y.conv
+    bar.x.end = bar.x.start + bar.length
+    d.line = data.frame(
+      x = c(bar.x.start, bar.x.end),
+      y = c(bar.y.start, bar.y.start),
+      z = 1,
+      myLabel = c(paste(bar.length,"nm"),"")
+    )
+    zLab = x@z.units[no]
+    g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
+      geom_raster() +
+      sFill +
+      xlab("") +
+      ylab("") +
+      labs(fill=zLab) +
+      scale_y_continuous(expand=c(0,0))+
+      scale_x_continuous(expand=c(0,0))+
+      coord_equal() +
+      geom_line(data = d.line, aes(x/1000,y/1000), size=4) +
+      geom_text(data = d.line, aes(label=myLabel), vjust=-1, hjust=0) +
+      theme_bw() +
+      theme(legend.position ='none') +
+      theme(axis.text.x = element_blank(),
+            axis.ticks.x = element_blank(),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
+  }else stop('graphType is not supported.')
 
   g1
 }
