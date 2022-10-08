@@ -7,6 +7,8 @@
 #' @param no channel number to select
 #' @returns AFMdata object with only the selected channel
 #'
+#' @author Thomas Gredig
+#'
 #' @seealso \code{\link{AFM.crop}}
 #'
 #' @export

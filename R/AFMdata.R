@@ -291,7 +291,7 @@ AFM.raster <- function(obj,no=1) {
 #' @param setRange vector with two values, such as c(-30,30) to make the scale from -30 to +30
 #' @param verbose if \code{TRUE} it outputs additional information.
 #' @param quiet if \code{TRUE} then no output at all
-#' @param ... other arguments
+#' @param ... other arguments, such as col='white' to change color of bar
 #'
 #' @return ggplot graph
 #'
@@ -307,6 +307,7 @@ AFM.raster <- function(obj,no=1) {
 #' d = AFM.import(AFM.getSampleImages(type='ibw')[1])
 #' plot(d, graphType=2)
 #' plot(d, fillOption = "magma", setRange=c(-30,30))
+#' plot(d, graphType=4, col='white', size=10)
 #' @export
 plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOption='viridis', addLines=FALSE, redBlue = FALSE, verbose=FALSE, quiet=FALSE, setRange = c(0,0), ...) {
   if (no>length(x@channel)) stop("imageNo out of bounds.")
@@ -384,8 +385,8 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
       scale_y_continuous(expand=c(0,0))+
       scale_x_continuous(expand=c(0,0))+
       coord_equal() +
-      geom_line(data = d.line, aes(x/1000,y/1000), size=4) +
-      geom_text(data = d.line, aes(label=myLabel), vjust=-1, hjust=0) +
+      geom_line(data = d.line, aes(x/1000,y/1000), size=4, ...) +
+      geom_text(data = d.line, aes(label=myLabel), vjust=-1, hjust=0, ...) +
       theme_bw() +
       theme(legend.position =c(0.99,0.01),
             legend.justification = c(1,0)) +
@@ -411,7 +412,7 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank())
 
-  }else if (graphType==4) {
+  } else if (graphType==4) { # plain style with scale
     # figure out coordinates for line
     bar.length = signif(x@x.nm*0.2,2)  # nm
     bar.x.start = 0.05*x@x.pixels * x@x.conv
@@ -433,8 +434,8 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
       scale_y_continuous(expand=c(0,0))+
       scale_x_continuous(expand=c(0,0))+
       coord_equal() +
-      geom_line(data = d.line, aes(x/1000,y/1000), size=4) +
-      geom_text(data = d.line, aes(label=myLabel), vjust=-1, hjust=0) +
+      geom_line(data = d.line, aes(x/1000,y/1000), size=4, ...) +
+      geom_text(data = d.line, aes(label=myLabel), vjust=-1, hjust=0,  ...) +
       theme_bw() +
       theme(legend.position ='none') +
       theme(axis.text.x = element_blank(),

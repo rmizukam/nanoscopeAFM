@@ -158,15 +158,13 @@ is no fit, the value can be reduced to 70 or 60.</p></dd>
 <span class="r-in"><span><span class="va">r</span> <span class="op">=</span> <span class="fu">AFM.hhcf</span><span class="op">(</span><span class="va">a</span>, numIterations <span class="op">=</span> <span class="fl">5e5</span>, dataOnly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span>                          <span class="co"># output HHCF data</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        r.nm          g    num</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.803922 0.08491045 498697</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.607843 0.21596528 496567</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.411765 0.36262190 494264</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 39.215686 0.49898530 491954</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 49.019608 0.61101167 489496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 58.823529 0.69584859 486998</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.803922 0.08540261 498700</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.607843 0.21656324 496578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.411765 0.36358104 494235</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 39.215686 0.50029594 491850</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 49.019608 0.61549534 489389</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 58.823529 0.70103751 486927</span>
 <span class="r-in"><span><span class="fu">AFM.hhcf</span><span class="op">(</span><span class="va">a</span>, dataOnly <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>    <span class="co"># output graph</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in nls(data = r, g ~ ss * (1 - exp(-(r.nm/xi)^H)), start = list(ss = ss,  : </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   number of iterations exceeded maximum of 50</span>
 <span class="r-plt img"><img src="AFM.hhcf-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

@@ -48,8 +48,8 @@ plot(afmd, graphType=2,trimPeaks=0.01)
 The image can be saved with `ggsave` as it is graphed with ggplot.
 
 ```{r}
-g1 = plot(afmd, graphType=2, trimPeaks=0.01)
-ggsave(tempfile(pattern = "", fileext = ".png"), plot=g1, dpi=300)
+g1 = plot(afmd, graphType=2, size=10, trimPeaks=0.01)
+ggsave(tempfile(pattern = "", fileext = ".png"), plot=g1, dpi=150)
 ```
 
 ## graphType 3
@@ -60,6 +60,14 @@ This graph type is bare and has neither length scales nor legend.
 plot(afmd, graphType=3, trimPeaks=0.01)
 summary(afmd)
 ```
+## graphType 4
+
+This graph type is plain with a scale. You can also change the color and the size of the font that displays the scale.
+
+```{r}
+plot(afmd, graphType=4, col='white', size=10, trimPeaks=0.05, fillOption = 'A')
+```
+
 
 
 ## Red Blue Color Scheme

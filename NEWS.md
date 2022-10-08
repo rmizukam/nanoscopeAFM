@@ -3,6 +3,7 @@
 * Update the Vignettes and Documentation
 * Height-Height Correlation Function Documentation
 * Adding AFM image range adjustment
+* GraphType=4 and add size to vary the bar description size
 
 # nanoscopeAFM 2.0.9
 

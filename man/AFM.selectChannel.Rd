@@ -20,3 +20,6 @@ Allows to select a specific channel in order to reduce the size of the image
 \seealso{
 \code{\link{AFM.crop}}
 }
+\author{
+Thomas Gredig
+}

@@ -26,7 +26,7 @@
 
 \item{mpt}{midpoint for coloring}
 
-\item{graphType}{1 = graph with legend outside, 2 = square graph with line bar, 3 = plain graph}
+\item{graphType}{1 = graph with legend outside, 2 = square graph with line bar, 3 = plain graph, 4 = plain graph with scale}
 
 \item{trimPeaks}{value from 0 to 1, where 0=trim 0\% and 1=trim 100\% of data points, generally a value less than 0.01 is useful to elevate the contrast of the image}
 
@@ -42,7 +42,7 @@
 
 \item{setRange}{vector with two values, such as c(-30,30) to make the scale from -30 to +30}
 
-\item{...}{other arguments}
+\item{...}{other arguments, such as col='white' to change color of bar}
 }
 \value{
 ggplot graph
@@ -54,6 +54,7 @@ By default, trims 1 percent of the outliers in height data
 d = AFM.import(AFM.getSampleImages(type='ibw')[1])
 plot(d, graphType=2)
 plot(d, fillOption = "magma", setRange=c(-30,30))
+plot(d, graphType=4, col='white', size=10)
 }
 \seealso{
 \code{\link{AFM.lineProfile}}

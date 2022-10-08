@@ -8,8 +8,10 @@ read.Nanoscope_file <- function(filename, no=1, headerOnly = FALSE) {
   while(first_line != "\\*File list end" ) {
     first_line <- readLines(con,n=1)
     if (length(first_line)==0) { err.msg = c(err.msg,'Header error'); break; }
+    if (first_line == "Frame=Frequency sweep") { err.msg = c(err.msg,"Frequency sweep file."); break;}
     header=c(header, first_line)
   }
+  if (length(err.msg)>0) { warning(paste("NID read error:", err.msg)); return(data.frame()) }
 
   # analyze header
   header = gsub('\\\\','',header)
@@ -77,7 +79,7 @@ read.Nanoscope_file <- function(filename, no=1, headerOnly = FALSE) {
   z   <- readBin(con, integer(),  n = im.dataLength/im.bytes.pixel, size=im.bytes.pixel, endian = "little")
   close(con)
 
-  if (length(err.msg)>0) warning(err.msg)
+  if (length(err.msg)>0) { warning(paste("NID read error:", err.msg)); return(data.frame()) }
 
   df = data.frame(x = rep(1:im.line.num, im.line.num),
                  y = rep(1:im.line.num, each=im.line.num),
