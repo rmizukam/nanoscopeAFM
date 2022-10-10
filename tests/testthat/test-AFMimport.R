@@ -118,18 +118,20 @@ test_that("NanoSurf image size check", {
   expect_equal(d@y.pixels*d@y.conv,10000,tolerance = 1e-2)
 })
 
+
 test_that("NanoSurf image size check", {
   filename = system.file("extdata", "NanoSurf_20160301.nid",package="nanoscopeAFM")
   d = AFM.import(filename)
   r = summary(d)
   # min height -294.2nm
   # max height -88.5nm
-  expect_equal(r$z.min[1],-294.2,tolerance = 1e-2)
-  expect_equal(r$z.max[1],-88.5,tolerance = 1e-2)
+  expect_equal(r$z.min[1],-294.2e-9,tolerance = 1e-2)
+  expect_equal(r$z.max[1],-88.5e-9,tolerance = 1e-2)
 })
 
 test_that("verify all sample images", {
   file.list = AFM.getSampleImages()
+  expect_equal(length(file.list), 4)
   x.pixels=c()
   for(filename in file.list) {
     d = AFM.import(filename)

@@ -8,8 +8,8 @@
 
 *-Ex.R
 /*.tar.gz
-/*.Rcheck/ 
+/*.Rcheck/
 
 nanoscopeAFM.Rproj
 inst/doc
-_main.R
+_*.R

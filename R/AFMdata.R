@@ -164,6 +164,7 @@ AFMdata <- function(data,
 AFM.import <- function(filename, verbose=FALSE) {
   if (grepl('ibw$',filename)) obj = read.AR_file.v2(filename)
   else if (grepl('tiff$',filename)) obj = read.Park_file.v2(filename)
+  else if (grepl('nid$',filename)) obj = read.NanoSurf_file.v2(filename)
   else {
     d = AFM.read(filename)
     z.conv = 1

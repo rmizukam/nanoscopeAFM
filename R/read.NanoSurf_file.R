@@ -30,8 +30,89 @@ read.NanoSurf_header.v2 <- function(filename) {
   )
 }
 
+# loads NanoSurf NID file, all channels and then returns an AFMdata file.
+read.NanoSurf_file.v2 <- function(filename) {
+  # file must be in NID format
+  if (!file.exists(filename)) stop(paste("File",filename,"does NOT exist."))
+  if (!(NID.checkFile(filename)==0)) stop("NID file is corrupted.")
 
-# loads images of AFM NID file (use NID.loadImage whenever)
+  # read the header
+  hItems = read.NID_headerItems(filename)
+  h = read.NID_header(filename)
+
+  # get the size for each channel
+  q = get.NID_imageInfo(h[[2]])
+  noImages = length(q)
+
+  # read header and all channels
+  header.length = h[[1]]
+  con <- file(filename,"rb")
+  bin.header <- readBin(con, integer(),  n = header.length, size=1, endian = "little")
+  bin.ID = readBin(con, integer(),  n = 2, size=1, endian = "little")
+
+  r = list()
+
+  if (sum(bin.ID) == sum(c(35,33))) {
+    if(length(q)>0) {
+      for(i in seq_len(length(q))) {
+        bin.data <- readBin(con, integer(),  n = q[i], size=2, endian = "little")
+        r[[i]] = bin.data
+      }
+    }
+  }
+  close(con)
+
+  # get scaling for image
+  units=c()
+  channels=c()
+  dz = list()
+  for(J in seq_len(noImages)) {
+    s1 = NID.getChannelScale(hItems,J)
+    units = c(units, s1$units[3])
+    channels = c(channels, s1$channelName[3])
+
+    # create the rastering sequences for x-, y-axes
+    # and convert pixels from z-axis into scale (m or V)
+    seq_x = seq(from=s1$from[1], to=s1$to[1], length.out = s1$length[1])
+    seq_y = seq(from=s1$from[2], to=s1$to[2], length.out = s1$length[2])
+    range.z = s1$to[3] - s1$from[3]
+
+    # create a data frame with the AFM image
+    # d = data.frame(x =rep(1:s1$length[1], each = s1$length[1]),
+    #            y = rep(1:s1$length[1], times = s1$length[1]),
+    #            z = r[[J]],
+    #            x.nm=rep(seq_x,each=s1$length[2]),
+    #            y.nm=rep(seq_y,times=s1$length[1]),
+    #            z.nm=(r[[J]]* (range.z/s1$length[3]) ))
+
+
+    dz[[J]] = r[[J]]* (range.z/s1$length[3])
+  }
+  # z.conv = 1
+  # if (d$z[1] != 0) z.conv = d$z.nm[1] / d$z[1]
+  # d1 = list(d$z.nm)
+
+  afmNote =paste(get.NIDitem(hItems[[3]],'Date'),get.NIDitem(hItems[[3]],'Time'))
+  obj = AFMdata(
+    data = list(z=dz),
+    channel = channels,
+    x.conv = ((s1$to[1] - s1$from[1]) / (s1$length[1]-1)) * 1e9,  # assume it is in [m]
+    y.conv = ((s1$to[2] - s1$from[2]) / (s1$length[2]-1)) * 1e9,
+    x.pixels = s1$length[1],
+    y.pixels = s1$length[2],
+    z.conv = 1,
+    z.units = units,
+    instrument = "NanoSurf",
+    history = '',
+    description = afmNote,
+    fullFilename = filename
+  )
+
+  obj
+}
+
+
+# laods channel 1 image, deprecated, use read.NanoSurf_file.v2() instead
 read.NanoSurf_file<- function(filename, imageNo=1) {
   if (!file.exists(filename)) warning(paste("File",filename,"does NOT exist."))
   # read header information
@@ -48,10 +129,11 @@ read.NanoSurf_file<- function(filename, imageNo=1) {
     #r = list(header = bin.header, ID = bin.ID)
     r = list()
 
+    # Loading all channels
     if (sum(bin.ID) == sum(c(35,33))) {
       if(length(q)>0) {
         for(i in seq_len(length(q))) {
-          bin.data <- readBin(con, integer(),  n = q[i]*q[i], size=2, endian = "little")
+          bin.data <- readBin(con, integer(),  n = q[i], size=2, endian = "little")
           r[[i]] = bin.data
         }
       }
@@ -105,15 +187,21 @@ NID.getChannelScale <- function(headerList, imageNo = 1) {
   ax=data.frame(axis='x',units = get.NIDitem(h,'Dim0Unit'),
                 from=get.NIDitem.numeric(h,'Dim0Min'),
                 to=get.NIDitem.numeric(h,'Dim0Min')+get.NIDitem.numeric(h,'Dim0Range'),
-                length=get.NIDitem.numeric(h,'Points'))
+                length=get.NIDitem.numeric(h,'Points'),
+                channelName = ""
+  )
   ay=data.frame(axis='y',units = get.NIDitem(h,'Dim1Unit'),
                 from=get.NIDitem.numeric(h,'Dim1Min'),
                 to=get.NIDitem.numeric(h,'Dim1Min')+get.NIDitem.numeric(h,'Dim1Range'),
-                length=get.NIDitem.numeric(h,'Lines'))
+                length=get.NIDitem.numeric(h,'Lines'),
+                channelName = ""
+  )
   az=data.frame(axis='z',units = get.NIDitem(h,'Dim2Unit'),
                 from=get.NIDitem.numeric(h,'Dim2Min'),
                 to=get.NIDitem.numeric(h,'Dim2Min')+get.NIDitem.numeric(h,'Dim2Range'),
-                length=2**get.NIDitem.numeric(h,'SaveBits'))
+                length=2**get.NIDitem.numeric(h,'SaveBits'),
+                channelName = paste(get.NIDitem(h,'Dim2Name'),get.NIDitem(h,'Frame'))
+  )
   rbind(ax,ay,az)
 }
 
@@ -239,12 +327,15 @@ NID.checkFile <- function(filename) {
   # compare file length with images + header +
   # 2 bytes for #! character, which is the beginning
   # of the images
-  file.len - sum(q*q)*2 - header.length - 2
+  file.len - sum(q)*2 - header.length - 2
 }
 
 
 
-
+# returns a vector with the pixels per image, for example for an image
+# with 4 channels, each 128x128, it would return
+# [1] 16384 16384 16384 16384
+#
 get.NID_imageInfo <- function(header.string) {
   # split data sets
   from = grep('\\[DataSet-',header.string)
@@ -263,9 +354,21 @@ get.NID_imageInfo <- function(header.string) {
                         }
   )
 
+  image.Points <- lapply(itemslist,
+                        function(x) {
+                          x[grep('Points',x)]
+                        }
+  )
+
   as.numeric(
     unlist(lapply(image.Lines, function(x) { sapply(strsplit(x,"="),'[[',2) }))
-  )
+  ) -> nLines
+
+  as.numeric(
+    unlist(lapply(image.Points, function(x) { sapply(strsplit(x,"="),'[[',2) }))
+  ) -> nPoints
+
+  nLines*nPoints
 }
 
 

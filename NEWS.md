@@ -4,6 +4,8 @@
 * Height-Height Correlation Function Documentation
 * Adding AFM image range adjustment
 * GraphType=4 and add size to vary the bar description size
+* support NID file size for non-square files in `get.NID_imageInfo` (useful for resonance curves)
+* load all channels for NID file
 
 # nanoscopeAFM 2.0.9
 

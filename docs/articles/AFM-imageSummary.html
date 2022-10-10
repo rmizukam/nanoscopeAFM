@@ -114,7 +114,6 @@
 systems. Here are a few examples.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thomasgredig.github.io/nanoscopeAFM/">nanoscopeAFM</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Please cite nanoscopeAFM ,see https://doi.org/10.5281/zenodo.5770772</span></span>
 <span><span class="va">file.list</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">filename</span> <span class="kw">in</span> <span class="va">file.list</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span><span class="op">)</span></span>
@@ -132,10 +131,16 @@ systems. Here are a few examples.</p>
 <span><span class="co">#&gt; 3     PhaseRetrace          63.92822 85.18923     deg</span></span>
 <span><span class="co">#&gt; 4   ZSensorRetrace         -29.44336 48.16414      nm</span></span>
 <span><span class="co">#&gt; [1] "NanoSurf_20160301.nid"</span></span>
-<span><span class="co">#&gt;        objectect description resolution             size       channel history</span></span>
-<span><span class="co">#&gt; 1 NanoSurf Image        none  128 x 128 10000 x 10000 nm Dynamic Force        </span></span>
-<span><span class="co">#&gt;       z.min     z.max z.units</span></span>
-<span><span class="co">#&gt; 1 -294.1895 -88.50098       m</span></span>
+<span><span class="co">#&gt;        objectect         description resolution             size</span></span>
+<span><span class="co">#&gt; 1 NanoSurf Image 01-03-2016 18:36:58  128 x 128 10000 x 10000 nm</span></span>
+<span><span class="co">#&gt; 2 NanoSurf Image 01-03-2016 18:36:58  128 x 128 10000 x 10000 nm</span></span>
+<span><span class="co">#&gt; 3 NanoSurf Image 01-03-2016 18:36:58  128 x 128 10000 x 10000 nm</span></span>
+<span><span class="co">#&gt; 4 NanoSurf Image 01-03-2016 18:36:58  128 x 128 10000 x 10000 nm</span></span>
+<span><span class="co">#&gt;                   channel history         z.min         z.max z.units</span></span>
+<span><span class="co">#&gt; 1     Z-Axis Scan forward         -2.941895e-07 -8.850098e-08       m</span></span>
+<span><span class="co">#&gt; 2  Amplitude Scan forward          2.853394e-02  7.675171e-02       V</span></span>
+<span><span class="co">#&gt; 3    Z-Axis Scan backward         -3.012085e-07 -9.124756e-08       m</span></span>
+<span><span class="co">#&gt; 4 Amplitude Scan backward          2.899170e-02  7.286072e-02       V</span></span>
 <span><span class="co">#&gt; [1] "Park_20210916_034.tiff"</span></span>
 <span><span class="co">#&gt;    objectect description resolution           size    channel history     z.min</span></span>
 <span><span class="co">#&gt; 1 Park Image         NCM  256 x 256 2500 x 2500 nm Topography         -2.713213</span></span>
@@ -873,7 +878,7 @@ object:</p>
 <span><span class="co">#&gt; [1] "Cypher"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $filename</span></span>
-<span><span class="co">#&gt; [1] "/private/var/folders/n7/c8bjcf7n25g74wqr3_7cgpvh0000gt/T/RtmpcrXDlG/temp_libpath95939f7cf3a/nanoscopeAFM/extdata/AR_20211011.ibw"</span></span>
+<span><span class="co">#&gt; [1] "/private/var/folders/n7/c8bjcf7n25g74wqr3_7cgpvh0000gt/T/Rtmp31NFaP/temp_libpath438222ccaf76/nanoscopeAFM/extdata/AR_20211011.ibw"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $widthPixel</span></span>
 <span><span class="co">#&gt; [1] 128</span></span>
@@ -1481,7 +1486,7 @@ object:</p>
 <span><span class="co">#&gt; [1] "NanoSurf"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $filename</span></span>
-<span><span class="co">#&gt; [1] "/private/var/folders/n7/c8bjcf7n25g74wqr3_7cgpvh0000gt/T/RtmpcrXDlG/temp_libpath95939f7cf3a/nanoscopeAFM/extdata/NanoSurf_20160301.nid"</span></span>
+<span><span class="co">#&gt; [1] "/private/var/folders/n7/c8bjcf7n25g74wqr3_7cgpvh0000gt/T/Rtmp31NFaP/temp_libpath438222ccaf76/nanoscopeAFM/extdata/NanoSurf_20160301.nid"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $widthPixel</span></span>
 <span><span class="co">#&gt; [1] 128</span></span>
@@ -1578,7 +1583,7 @@ object:</p>
 <span><span class="co">#&gt; [1] "Park"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $filename</span></span>
-<span><span class="co">#&gt; [1] "/private/var/folders/n7/c8bjcf7n25g74wqr3_7cgpvh0000gt/T/RtmpcrXDlG/temp_libpath95939f7cf3a/nanoscopeAFM/extdata/Park_20210916_034.tiff"</span></span>
+<span><span class="co">#&gt; [1] "/private/var/folders/n7/c8bjcf7n25g74wqr3_7cgpvh0000gt/T/Rtmp31NFaP/temp_libpath438222ccaf76/nanoscopeAFM/extdata/Park_20210916_034.tiff"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $widthPixel</span></span>
 <span><span class="co">#&gt; [1] 256</span></span>

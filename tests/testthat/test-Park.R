@@ -6,18 +6,7 @@ test_that("check Park AFM image exists", {
   expect_true(file.exists(filename))
 })
 
-test_that("check Park AFM images is read into memory", {
-  d = read.Park_file(filename)
-  expect_equal(nrow(d),65536)
-  expect_equal(min(d$z), -0.002049975)
-  expect_equal(max(d$x.nm), 2500)
-})
 
-test_that("test Park AFM image scales", {
-  d = AFM.read(filename)
-  expect_equal(length(d), 6)
-  expect_equal(nrow(d),256*256)
-})
 
 test_that("Park image import", {
   afmobj = AFM.import(filename)
