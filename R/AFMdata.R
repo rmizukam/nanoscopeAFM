@@ -5,7 +5,7 @@
 #' The class supports multiple images; it can also contain additional information
 #' such as lines, etc.
 #'
-#' @slot data list with objects ($z is a list with images)
+#' @slot data list with objects ($z is a list with images, $freq is a resonance curve)
 #' @slot x.conv conversion factor from pixels to nm
 #' @slot y.conv conversion factor from pixels to nm
 #' @slot x.pixels number of pixels in x-direction
@@ -51,7 +51,7 @@ AFMdata<-setClass("AFMdata",
 #' Constructor method of AFMImage Class.
 #'
 #' @param .Object an AFMdata object
-#' @param data list with objects (z is a list with images)
+#' @param data list with objects ($z is a list with images, $freq is a resonance curve)
 #' @param x.conv conversion factor from pixels to nm
 #' @param y.conv conversion factor from pixels to nm
 #' @param x.pixels number of pixels in x-direction
@@ -103,7 +103,7 @@ setMethod(f="initialize",
 
 #' Initialize the AFMdata object
 #'
-#' @param data list with objects ($z is a list with images)
+#' @param data list with objects ($z is a list with images, $freq is a resonance curve)
 #' @param x.conv conversion factor from pixels to nm
 #' @param y.conv conversion factor from pixels to nm
 #' @param x.pixels number of pixels in x-direction
@@ -205,11 +205,13 @@ AFM.import <- function(filename, verbose=FALSE) {
 #' print(d)
 #' @export
 print.AFMdata <- function(x, ...) {
-  if(AFM.isImage(x)) dataType='Image' else dataType='Force Curve'
+  dataType = AFM.dataType(x)
+
   cat("Object:     ",x@instrument,"AFM",dataType,"\n")
   cat("Description:",x@description,'\n')
   cat("Channel:    ",x@channel,'\n')
-  cat("            ",x@x.nm,"nm  x ",x@y.nm,'nm \n')
+  if(dataType=="image") cat("            ",x@x.nm,"nm  x ",x@y.nm,'nm \n')
+  if(dataType=="frequency") cat("            ",x@z.conv,x@z.units," - ",(x@z.conv + x@x.nm),x@z.units,' \n')
   cat("History:    ",x@history,'\n')
   cat("Filename:   ",x@fullFilename)
 }
@@ -226,21 +228,36 @@ print.AFMdata <- function(x, ...) {
 #' @export
 summary.AFMdata <- function(object,...) {
   if (purrr::is_empty(object@description)) object@description=""
-  if(AFM.isImage(object)) dataType='Image' else dataType='Force Curve'
-  r = data.frame(
-    objectect = paste(object@instrument,dataType),
-    description = paste(object@description),
-    resolution = paste(object@x.pixels,"x",object@y.pixels),
-    size = paste(object@x.nm,"x",round(object@y.nm),'nm'),
-    channel = paste(object@channel),
-    history = paste(object@history)
-  )
-  for(i in seq_len(length(r$channel))) {
-    d = AFM.raster(object,i)
-    r$z.min[i]=min(d$z)
-    r$z.max[i] = max(d$z)
+
+  dataType = AFM.dataType(object)
+  if(dataType == 'image') {
+    r = data.frame(
+      objectect = paste(object@instrument,dataType),
+      description = paste(object@description),
+      resolution = paste(object@x.pixels,"x",object@y.pixels),
+      size = paste(object@x.nm,"x",round(object@y.nm),'nm'),
+      channel = paste(object@channel),
+      history = paste(object@history)
+    )
+    for(i in seq_len(length(r$channel))) {
+      d = AFM.raster(object,i)
+      r$z.min[i]=min(d$z)
+      r$z.max[i] = max(d$z)
+    }
+    r$z.units = paste(object@z.units)
+  } else if (dataType == 'frequency') {
+    r = data.frame(
+      objectect = paste(object@instrument,dataType),
+      description = paste(object@description),
+      resolution = paste(object@x.pixels),
+      size = paste(object@z.conv,"-",(object@z.conv+object@x.nm)),
+      channel = paste(object@channel),
+      history = paste(object@history),
+      z.min = which.max(object@data$freq),
+      z.max = (which.max(object@data$freq)-1)*object@x.conv + object@z.conv,
+      z.units = object@z.units
+    )
   }
-  r$z.units = paste(object@z.units)
   r
 }
 
@@ -455,16 +472,31 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
 #' checks if the object is an AFM image
 #'
 #' @param obj AFMdata object
-#' @return \code{TRUE} if object is an AFM image
+#' @return \code{TRUE} if object is an AFM image, \code{FALSE} for frequency image
 #' @author Thomas Gredig
 #' @examples
 #' d = AFM.import(AFM.getSampleImages(type='ibw')[1])
 #' AFM.isImage(d)
 #' @export
 AFM.isImage <- function(obj) {
-  ((obj@x.pixels > 1) & (obj@y.pixels>1))
+  (AFM.dataType(obj)=="image")
 }
 
+#' returns type of AFM image
+#'
+#' @param obj AFMdata object
+#' @return string with AFM type, "image", "force", "frequency"
+#'
+#' @author Thomas Gredig
+#' @examples
+#' d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+#' AFM.dataType(d)
+#' @export
+AFM.dataType <- function(obj) {
+  if (names(obj@data)[1]=="freq") return("frequency")
+  if (((obj@x.pixels <= 1) || (obj@y.pixels <= 1))) return("force")
+  return("image")
+}
 
 
 

@@ -42,7 +42,7 @@ test_that("getLine for particular pixel", {
 
 
 test_that("print AFMdata", {
-  expect_output(print(afmd), "Cypher AFM Image")
+  expect_output(print(afmd), "Cypher AFM image")
   expect_output(print(afmd), "HeightRetrace")
 })
 

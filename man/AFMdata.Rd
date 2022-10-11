@@ -35,7 +35,7 @@ AFMdata(
 )
 }
 \arguments{
-\item{data}{list with objects ($z is a list with images)}
+\item{data}{list with objects ($z is a list with images, $freq is a resonance curve)}
 
 \item{x.conv}{conversion factor from pixels to nm}
 
@@ -68,7 +68,7 @@ such as lines, etc.
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{list with objects ($z is a list with images)}
+\item{\code{data}}{list with objects ($z is a list with images, $freq is a resonance curve)}
 
 \item{\code{x.conv}}{conversion factor from pixels to nm}
 

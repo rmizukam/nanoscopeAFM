@@ -23,7 +23,7 @@
 \arguments{
 \item{.Object}{an AFMdata object}
 
-\item{data}{list with objects (z is a list with images)}
+\item{data}{list with objects ($z is a list with images, $freq is a resonance curve)}
 
 \item{x.conv}{conversion factor from pixels to nm}
 

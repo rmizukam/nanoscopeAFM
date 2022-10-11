@@ -62,51 +62,73 @@ read.NanoSurf_file.v2 <- function(filename) {
   }
   close(con)
 
-  # get scaling for image
-  units=c()
-  channels=c()
-  dz = list()
-  for(J in seq_len(noImages)) {
-    s1 = NID.getChannelScale(hItems,J)
-    units = c(units, s1$units[3])
-    channels = c(channels, s1$channelName[3])
+  # check if file is a resonance / frequency curve
+  if (get.NIDitem(hItems[[2]],'Gr0-Name') == "Frequency sweep") {
+    # FREQUENCY file
+    # ==============
+    afmNote = paste(get.NIDitem(hItems[[3]], "Cantilever type"),
+          get.NIDitem(hItems[[3]], "Freq. peak"),
+          get.NIDitem(hItems[[3]], "Excitation ampl."),
+          get.NIDitem(hItems[[3]], "Date"),
+          get.NIDitem(hItems[[3]], "Time"),
+          sep="; ")
+    h = NID.getHeaderSet(hItems,2)
+    if (length(r) != 1) warning("Frequency sweep has additional data sets !?!")
+    freqStep = get.NIDitem.numeric(h,'Dim0Range') / (get.NIDitem.numeric(h,'Points') - 1)
 
-    # create the rastering sequences for x-, y-axes
-    # and convert pixels from z-axis into scale (m or V)
-    seq_x = seq(from=s1$from[1], to=s1$to[1], length.out = s1$length[1])
-    seq_y = seq(from=s1$from[2], to=s1$to[2], length.out = s1$length[2])
-    range.z = s1$to[3] - s1$from[3]
+    obj = AFMdata(
+      data = list(freq=r[[1]]/(2^16)*get.NIDitem.numeric(h, "Dim2Range")),
+      channel = "Frequency sweep",
+      x.conv = freqStep,  # frequency Step
+      y.conv = 0,
+      x.pixels = get.NIDitem.numeric(h,'Points'),  # number of data points
+      y.pixels = 0,
+      z.conv = get.NIDitem.numeric(h, "Dim0Min"),  # starting frequency in set
+      z.units = get.NIDitem(h,'Dim0Unit'),
+      instrument = "NanoSurf",
+      history = '',
+      description = afmNote,
+      fullFilename = filename
+    )
 
-    # create a data frame with the AFM image
-    # d = data.frame(x =rep(1:s1$length[1], each = s1$length[1]),
-    #            y = rep(1:s1$length[1], times = s1$length[1]),
-    #            z = r[[J]],
-    #            x.nm=rep(seq_x,each=s1$length[2]),
-    #            y.nm=rep(seq_y,times=s1$length[1]),
-    #            z.nm=(r[[J]]* (range.z/s1$length[3]) ))
+  } else {
+    # IMAGE file
+    # =========
 
+    # get scaling for image
+    units=c()
+    channels=c()
+    dz = list()
+    for(J in seq_len(noImages)) {
+      s1 = NID.getChannelScale(hItems,J)
+      units = c(units, s1$units[3])
+      channels = c(channels, s1$channelName[3])
 
-    dz[[J]] = r[[J]]* (range.z/s1$length[3])
+      # create the rastering sequences for x-, y-axes
+      # and convert pixels from z-axis into scale (m or V)
+      seq_x = seq(from=s1$from[1], to=s1$to[1], length.out = s1$length[1])
+      seq_y = seq(from=s1$from[2], to=s1$to[2], length.out = s1$length[2])
+      range.z = s1$to[3] - s1$from[3]
+
+      dz[[J]] = r[[J]]* (range.z/s1$length[3])
+    }
+
+    afmNote =paste(get.NIDitem(hItems[[3]],'Date'),get.NIDitem(hItems[[3]],'Time'))
+    obj = AFMdata(
+      data = list(z=dz),
+      channel = channels,
+      x.conv = ((s1$to[1] - s1$from[1]) / (s1$length[1]-1)) * 1e9,  # assume it is in [m]
+      y.conv = ((s1$to[2] - s1$from[2]) / (s1$length[2]-1)) * 1e9,
+      x.pixels = s1$length[1],
+      y.pixels = s1$length[2],
+      z.conv = 1,
+      z.units = units,
+      instrument = "NanoSurf",
+      history = '',
+      description = afmNote,
+      fullFilename = filename
+    )
   }
-  # z.conv = 1
-  # if (d$z[1] != 0) z.conv = d$z.nm[1] / d$z[1]
-  # d1 = list(d$z.nm)
-
-  afmNote =paste(get.NIDitem(hItems[[3]],'Date'),get.NIDitem(hItems[[3]],'Time'))
-  obj = AFMdata(
-    data = list(z=dz),
-    channel = channels,
-    x.conv = ((s1$to[1] - s1$from[1]) / (s1$length[1]-1)) * 1e9,  # assume it is in [m]
-    y.conv = ((s1$to[2] - s1$from[2]) / (s1$length[2]-1)) * 1e9,
-    x.pixels = s1$length[1],
-    y.pixels = s1$length[2],
-    z.conv = 1,
-    z.units = units,
-    instrument = "NanoSurf",
-    history = '',
-    description = afmNote,
-    fullFilename = filename
-  )
 
   obj
 }
@@ -174,15 +196,19 @@ get.NIDitem.numeric <- function(item, name) {
   as.numeric(gsub(paste0(name,'='),'',item[n0]))
 }
 
-# returns the scales of a particular channel / image
-# headerList header list as obtained from read.NID_headerItems
-# imageNo 1,2,3,4 denoting the number of the image
-NID.getChannelScale <- function(headerList, imageNo = 1) {
+NID.getHeaderSet <- function(headerList, imageNo = 1) {
   c1 = switch(imageNo, "Gr0-Ch1","Gr0-Ch2","Gr1-Ch1","Gr1-Ch2",
               "Gr2-Ch1","Gr2-Ch2","Gr3-Ch1","Gr3-Ch2")
   d.set = get.NIDitem(headerList[[2]],c1)
   k.set = grep(d.set,headerList[[1]])
-  h = headerList[[k.set]]
+  headerList[[k.set]]
+}
+
+# returns the scales of a particular channel / image
+# headerList header list as obtained from read.NID_headerItems
+# imageNo 1,2,3,4 denoting the number of the image
+NID.getChannelScale <- function(headerList, imageNo = 1) {
+  h = NID.getHeaderSet(headerList, imageNo)
 
   ax=data.frame(axis='x',units = get.NIDitem(h,'Dim0Unit'),
                 from=get.NIDitem.numeric(h,'Dim0Min'),
