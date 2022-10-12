@@ -70,6 +70,9 @@
       <a href="../articles/AFM-imageSummary.html">AFM Image Summary</a>
     </li>
     <li>
+      <a href="../articles/FrequencySweep.html">FrequencySweep</a>
+    </li>
+    <li>
       <a href="../articles/Height-Height-Correlation-Function.html">Height-Height-Correlation-Function</a>
     </li>
     <li>
@@ -157,10 +160,10 @@ ggplot.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">afmd</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      objectect               description resolution           size</span></span>
-<span><span class="co">#&gt; 1 Cypher Image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
-<span><span class="co">#&gt; 2 Cypher Image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
-<span><span class="co">#&gt; 3 Cypher Image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
-<span><span class="co">#&gt; 4 Cypher Image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
+<span><span class="co">#&gt; 1 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
+<span><span class="co">#&gt; 2 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
+<span><span class="co">#&gt; 3 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
+<span><span class="co">#&gt; 4 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
 <span><span class="co">#&gt;            channel history     z.min    z.max z.units</span></span>
 <span><span class="co">#&gt; 1    HeightRetrace         -32.45992 50.78832      nm</span></span>
 <span><span class="co">#&gt; 2 AmplitudeRetrace          29.00730 32.78488      nm</span></span>
@@ -198,10 +201,10 @@ plots. Use <code>save_plot</code> to save the graph.</p>
 <span><span class="va">afmd2</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="va">fname2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">afmd2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      objectect               description resolution           size</span></span>
-<span><span class="co">#&gt; 1 Cypher Image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
-<span><span class="co">#&gt; 2 Cypher Image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
-<span><span class="co">#&gt; 3 Cypher Image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
-<span><span class="co">#&gt; 4 Cypher Image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
+<span><span class="co">#&gt; 1 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
+<span><span class="co">#&gt; 2 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
+<span><span class="co">#&gt; 3 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
+<span><span class="co">#&gt; 4 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
 <span><span class="co">#&gt;            channel history     z.min    z.max z.units</span></span>
 <span><span class="co">#&gt; 1    HeightRetrace         -32.45992 50.78832      nm</span></span>
 <span><span class="co">#&gt; 2 AmplitudeRetrace          29.00730 32.78488      nm</span></span>

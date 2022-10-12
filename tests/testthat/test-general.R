@@ -20,7 +20,7 @@ test_that("AFM.flatten: flattening image", {
 
 test_that("AFM.getSampleImages: find sample files", {
   file.list = AFM.getSampleImages()
-  expect_equal(length(file.list),4)
+  expect_equal(length(file.list),5)
   expect_true(file.exists(file.list[1]))
 })
 

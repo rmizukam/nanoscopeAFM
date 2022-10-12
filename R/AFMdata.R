@@ -268,9 +268,11 @@ summary.AFMdata <- function(object,...) {
 #' data frame has  ($x, $y, $z) in units for particular channel, ($x, $y) are
 #' always in units of nanometer
 #'
+#' for frequency data sweep, it will return ($freq, $z) instead
+#'
 #' @param obj AFMdata object
 #' @param no channel number
-#' @return data.frame with ($x, $y, $z) raster image; ($x,$y) in units of nm
+#' @return data.frame with ($x, $y, $z) raster image; ($x,$y) in units of nm, or ($freq, $z) for frequency sweep
 #' @author Thomas Gredig
 #' @examples
 #' afmd = AFM.import(AFM.getSampleImages(type='ibw')[1])
@@ -284,6 +286,12 @@ AFM.raster <- function(obj,no=1) {
       x = rep(0:(obj@x.pixels-1),obj@y.pixels)*obj@x.conv,
       y = rep(0:(obj@y.pixels-1),each=obj@x.pixels)*obj@y.conv,
       z = obj@data$z[[no]]
+    )
+  } else if (AFM.dataType(obj)=='frequency')
+  {
+    dr = data.frame(
+      freq.Hz = seq(from=obj@z.conv, to=(obj@z.conv + obj@x.nm), by=obj@x.conv),
+      z.V = obj@data$freq
     )
   } else {  # could be a spectrum
     dr = data.frame(
@@ -327,140 +335,154 @@ AFM.raster <- function(obj,no=1) {
 #' plot(d, fillOption = "magma", setRange=c(-30,30))
 #' plot(d, graphType=4, col='white', size=10)
 #' @export
-plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOption='viridis', addLines=FALSE, redBlue = FALSE, verbose=FALSE, quiet=FALSE, setRange = c(0,0), ...) {
+plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOption='viridis',
+                         addLines=FALSE, redBlue = FALSE, verbose=FALSE, quiet=FALSE, setRange = c(0,0), ...) {
+  # check parameters
   if (no>length(x@channel)) stop("imageNo out of bounds.")
   if (!quiet) cat("Graphing:",x@channel[no])
   if (verbose) print(paste("History:",x@history))
-  d = AFM.raster(x,no)
-  zLab = paste0(x@channel[no],' (',x@z.units[no],')')
-  zLab = gsub('Retrace|Trace','',zLab)
 
-  xlab <- expression(paste('x (',mu,'m)'))
+  if (AFM.isImage(x)) {
+    d = AFM.raster(x,no)
+    zLab = paste0(x@channel[no],' (',x@z.units[no],')')
+    zLab = gsub('Retrace|Trace','',zLab)
 
-  if (trimPeaks>0) {
-    AFM.histogram(x, no, dataOnly = TRUE) -> qHist
-    cumsum(qHist$zDensity) -> csHist
-    csHist / max(csHist) -> csHist
-    lowerBound = qHist$mids[tail(which(csHist<(trimPeaks/2)),n=1)]
-    upperBound = qHist$mids[head(which(csHist>(1-trimPeaks/2)),n=1)]
-    d$z[which(d$z<lowerBound)] <- lowerBound
-    d$z[which(d$z>upperBound)] <- upperBound
-  }
+    xlab <- expression(paste('x (',mu,'m)'))
 
-  # bit of a hack to set the range
-  if (!(setRange[1]==0 & setRange[2]==0)) {
-    d$z[1]=setRange[1]
-    d$z[2]=setRange[2]
-  }
+    if (trimPeaks>0) {
+      AFM.histogram(x, no, dataOnly = TRUE) -> qHist
+      cumsum(qHist$zDensity) -> csHist
+      csHist / max(csHist) -> csHist
+      lowerBound = qHist$mids[tail(which(csHist<(trimPeaks/2)),n=1)]
+      upperBound = qHist$mids[head(which(csHist>(1-trimPeaks/2)),n=1)]
+      d$z[which(d$z<lowerBound)] <- lowerBound
+      d$z[which(d$z>upperBound)] <- upperBound
+    }
 
-  if (addLines) {
-    # check if there are lines
-    if (is.null(x@data$line)) { warning("No lines attached.") }
-    else {
-      if (verbose) print("Adding lines using min. value for color.")
-      for(zLine in x@data$line) {
-        d$z[zLine] = min(d$z)
+    # bit of a hack to set the range
+    if (!(setRange[1]==0 & setRange[2]==0)) {
+      d$z[1]=setRange[1]
+      d$z[2]=setRange[2]
+    }
+
+    if (addLines) {
+      # check if there are lines
+      if (is.null(x@data$line)) { warning("No lines attached.") }
+      else {
+        if (verbose) print("Adding lines using min. value for color.")
+        for(zLine in x@data$line) {
+          d$z[zLine] = min(d$z)
+        }
       }
     }
-  }
 
-  if (is.na(mpt)) mean(d$z) -> mpt
+    if (is.na(mpt)) mean(d$z) -> mpt
 
-  if (verbose) print(paste("z range: ",min(d$z)," to ",max(d$z)," midpoint",mpt))
-  if (redBlue) sFill = scale_fill_gradient2(low='red', mid='white', high='blue', midpoint=mpt)
-  else sFill = scale_fill_viridis(option=fillOption)
+    if (verbose) print(paste("z range: ",min(d$z)," to ",max(d$z)," midpoint",mpt))
+    if (redBlue) sFill = scale_fill_gradient2(low='red', mid='white', high='blue', midpoint=mpt)
+    else sFill = scale_fill_viridis(option=fillOption)
 
-  if (graphType==1) {
-    g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
-      geom_raster() +
-      sFill +
-      xlab(xlab) +
-      ylab(expression(paste('y (',mu,'m)'))) +
-      labs(fill=zLab) +
-      scale_y_continuous(expand=c(0,0))+
-      scale_x_continuous(expand=c(0,0))+
-      coord_equal() +
+    if (graphType==1) {
+      g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
+        geom_raster() +
+        sFill +
+        xlab(xlab) +
+        ylab(expression(paste('y (',mu,'m)'))) +
+        labs(fill=zLab) +
+        scale_y_continuous(expand=c(0,0))+
+        scale_x_continuous(expand=c(0,0))+
+        coord_equal() +
+        theme_bw()
+    } else if (graphType==2) {
+      # figure out coordinates for line
+      bar.length = signif(x@x.nm*0.2,2)  # nm
+      bar.x.start = 0.05*x@x.pixels * x@x.conv
+      bar.y.start = 0.05*x@y.pixels * x@y.conv
+      bar.x.end = bar.x.start + bar.length
+      d.line = data.frame(
+        x = c(bar.x.start, bar.x.end),
+        y = c(bar.y.start, bar.y.start),
+        z = 1,
+        myLabel = c(paste(bar.length,"nm"),"")
+      )
+      zLab = x@z.units[no]
+      g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
+        geom_raster() +
+        sFill +
+        xlab("") +
+        ylab("") +
+        labs(fill=zLab) +
+        scale_y_continuous(expand=c(0,0))+
+        scale_x_continuous(expand=c(0,0))+
+        coord_equal() +
+        geom_line(data = d.line, aes(x/1000,y/1000), size=4, ...) +
+        geom_text(data = d.line, aes(label=myLabel), vjust=-1, hjust=0, ...) +
+        theme_bw() +
+        theme(legend.position =c(0.99,0.01),
+              legend.justification = c(1,0)) +
+        theme(axis.text.x = element_blank(),
+              axis.ticks.x = element_blank(),
+              axis.text.y = element_blank(),
+              axis.ticks.y = element_blank())
+
+    } else if (graphType==3) {
+      zLab = x@z.units[no]
+      g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
+        geom_raster() +
+        sFill +
+        xlab("") +
+        ylab("") +
+        scale_y_continuous(expand=c(0,0))+
+        scale_x_continuous(expand=c(0,0))+
+        coord_equal() +
+        theme_bw() +
+        theme(legend.position = "none") +
+        theme(axis.text.x = element_blank(),
+              axis.ticks.x = element_blank(),
+              axis.text.y = element_blank(),
+              axis.ticks.y = element_blank())
+
+    } else if (graphType==4) { # plain style with scale
+      # figure out coordinates for line
+      bar.length = signif(x@x.nm*0.2,2)  # nm
+      bar.x.start = 0.05*x@x.pixels * x@x.conv
+      bar.y.start = 0.05*x@y.pixels * x@y.conv
+      bar.x.end = bar.x.start + bar.length
+      d.line = data.frame(
+        x = c(bar.x.start, bar.x.end),
+        y = c(bar.y.start, bar.y.start),
+        z = 1,
+        myLabel = c(paste(bar.length,"nm"),"")
+      )
+      zLab = x@z.units[no]
+      g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
+        geom_raster() +
+        sFill +
+        xlab("") +
+        ylab("") +
+        labs(fill=zLab) +
+        scale_y_continuous(expand=c(0,0))+
+        scale_x_continuous(expand=c(0,0))+
+        coord_equal() +
+        geom_line(data = d.line, aes(x/1000,y/1000), size=4, ...) +
+        geom_text(data = d.line, aes(label=myLabel), vjust=-1, hjust=0,  ...) +
+        theme_bw() +
+        theme(legend.position ='none') +
+        theme(axis.text.x = element_blank(),
+              axis.ticks.x = element_blank(),
+              axis.text.y = element_blank(),
+              axis.ticks.y = element_blank())
+    } else stop('graphType is not supported.')
+  } else if (AFM.dataType(x) == 'frequency') {
+    ## graph the frequency
+    d = AFM.raster(x)
+    g1 <- ggplot(d, aes(freq.Hz/1e3, z.V)) +
+      geom_line(col='red', size=2) +
+      xlab('f (kHz)') +
+      ylab('V (V)') +
       theme_bw()
-  } else if (graphType==2) {
-    # figure out coordinates for line
-    bar.length = signif(x@x.nm*0.2,2)  # nm
-    bar.x.start = 0.05*x@x.pixels * x@x.conv
-    bar.y.start = 0.05*x@y.pixels * x@y.conv
-    bar.x.end = bar.x.start + bar.length
-    d.line = data.frame(
-      x = c(bar.x.start, bar.x.end),
-      y = c(bar.y.start, bar.y.start),
-      z = 1,
-      myLabel = c(paste(bar.length,"nm"),"")
-    )
-    zLab = x@z.units[no]
-    g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
-      geom_raster() +
-      sFill +
-      xlab("") +
-      ylab("") +
-      labs(fill=zLab) +
-      scale_y_continuous(expand=c(0,0))+
-      scale_x_continuous(expand=c(0,0))+
-      coord_equal() +
-      geom_line(data = d.line, aes(x/1000,y/1000), size=4, ...) +
-      geom_text(data = d.line, aes(label=myLabel), vjust=-1, hjust=0, ...) +
-      theme_bw() +
-      theme(legend.position =c(0.99,0.01),
-            legend.justification = c(1,0)) +
-      theme(axis.text.x = element_blank(),
-            axis.ticks.x = element_blank(),
-            axis.text.y = element_blank(),
-            axis.ticks.y = element_blank())
 
-  } else if (graphType==3) {
-    zLab = x@z.units[no]
-    g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
-      geom_raster() +
-      sFill +
-      xlab("") +
-      ylab("") +
-      scale_y_continuous(expand=c(0,0))+
-      scale_x_continuous(expand=c(0,0))+
-      coord_equal() +
-      theme_bw() +
-      theme(legend.position = "none") +
-      theme(axis.text.x = element_blank(),
-            axis.ticks.x = element_blank(),
-            axis.text.y = element_blank(),
-            axis.ticks.y = element_blank())
-
-  } else if (graphType==4) { # plain style with scale
-    # figure out coordinates for line
-    bar.length = signif(x@x.nm*0.2,2)  # nm
-    bar.x.start = 0.05*x@x.pixels * x@x.conv
-    bar.y.start = 0.05*x@y.pixels * x@y.conv
-    bar.x.end = bar.x.start + bar.length
-    d.line = data.frame(
-      x = c(bar.x.start, bar.x.end),
-      y = c(bar.y.start, bar.y.start),
-      z = 1,
-      myLabel = c(paste(bar.length,"nm"),"")
-    )
-    zLab = x@z.units[no]
-    g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
-      geom_raster() +
-      sFill +
-      xlab("") +
-      ylab("") +
-      labs(fill=zLab) +
-      scale_y_continuous(expand=c(0,0))+
-      scale_x_continuous(expand=c(0,0))+
-      coord_equal() +
-      geom_line(data = d.line, aes(x/1000,y/1000), size=4, ...) +
-      geom_text(data = d.line, aes(label=myLabel), vjust=-1, hjust=0,  ...) +
-      theme_bw() +
-      theme(legend.position ='none') +
-      theme(axis.text.x = element_blank(),
-            axis.ticks.x = element_blank(),
-            axis.text.y = element_blank(),
-            axis.ticks.y = element_blank())
-  }else stop('graphType is not supported.')
+  }
 
   g1
 }

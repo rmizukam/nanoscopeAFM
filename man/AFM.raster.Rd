@@ -12,11 +12,14 @@ AFM.raster(obj, no = 1)
 \item{no}{channel number}
 }
 \value{
-data.frame with ($x, $y, $z) raster image; ($x,$y) in units of nm
+data.frame with ($x, $y, $z) raster image; ($x,$y) in units of nm, or ($freq, $z) for frequency sweep
 }
 \description{
 data frame has  ($x, $y, $z) in units for particular channel, ($x, $y) are
 always in units of nanometer
+}
+\details{
+for frequency data sweep, it will return ($freq, $z) instead
 }
 \examples{
 afmd = AFM.import(AFM.getSampleImages(type='ibw')[1])

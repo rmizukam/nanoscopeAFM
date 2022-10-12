@@ -7,6 +7,8 @@
 * support NID file size for non-square files in `get.NID_imageInfo` (useful for resonance curves)
 * load all channels for NID file
 * support NID frequency scan
+* add sample NID frequency scan file
+
 
 # nanoscopeAFM 2.0.9
 
