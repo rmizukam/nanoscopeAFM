@@ -2,13 +2,13 @@
 
 # nanoscopeAFM  <img src="man/figures/logo.png" align="right" alt="" width="250" />
 
-Imports and analyzes Atomic Force Microsocpy images; currently four types are supported, images from Nanosurf (.nid), Veeco Multimode Nanoscope III (.000), Park AFM images (.tiff), and Asylum Research AFM images (.ibw).
+Imports and analyzes Atomic Force Microsocpy images; currently four types are supported, images from Nanosurf (.nid), Veeco Multimode Nanoscope III (.000), Park AFM images (.tiff), and Asylum Research AFM Igor images (.ibw).
 
-There are two main points for the development of this R package:
+This package provides three main advantages:
 
-- Using this data class, a series of images can be analyzed uniformly and quickly. 
-- Access to each data point allows us to integrate mathematical models directly to the original data. 
-
+- Using this data class, a series of images can be analyzed uniformly and quickly within R;
+- Access to each data point allows us to integrate mathematical models directly to the original data; 
+- Part of reproducible data science that processes raw data directly into publishable figures.
 
 ## Installation
 

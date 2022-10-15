@@ -1,5 +1,3 @@
-
-
 filename = AFM.getSampleImages(type='ibw')
 afmd = AFM.import(filename)
 

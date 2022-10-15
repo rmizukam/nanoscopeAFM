@@ -11,16 +11,16 @@
 #' @param y2 end y position in  units of nm from bottom left
 #' @param verbose logical, if \code{TRUE}, output additional information
 #' @returns AFMdata object with line data
-#' 
+#'
 #' @author Thomas Gredig
-#' 
-#' @examples 
+#'
+#' @examples
 #' afmd = AFM.artificialImage(width=128, height=128, type='calibration', verbose=FALSE)
 #' AFM.lineProfile(afmd, 100, 500, 900, 500) -> afmd2
 #' AFM.linePlot(afmd2)
-#' 
+#'
 #' @seealso \code{\link{AFM.getLine}}, \code{\link{AFM.linePlot}}
-#' 
+#'
 #' @export
 AFM.lineProfile <- function(obj,x1,y1,x2,y2, verbose=FALSE) {
   AFMcopy <- obj
@@ -94,8 +94,9 @@ AFM.lineProfile <- function(obj,x1,y1,x2,y2, verbose=FALSE) {
 #' AFM.linePlot(d2)
 #' plot(d2,addLines=TRUE)
 #' @export
-AFM.linePlot<- function(obj,no=1,dataOnly=FALSE) {
+AFM.linePlot <- function(obj,no=1,dataOnly=FALSE) {
   if (is.null(obj@data$line)) { warning("No lines in object."); return() }
+  x <- z <- type <- NULL
   zData = obj@data$z[[no]]
   i=1
   r = data.frame()

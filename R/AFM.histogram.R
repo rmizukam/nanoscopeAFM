@@ -18,9 +18,11 @@
 #'
 #' @importFrom ggplot2 ggplot aes geom_histogram geom_density
 #' @importFrom graphics hist
-#' 
+#'
 #' @export
 AFM.histogram <- function(obj, no=1, binNo = 200, dataOnly=FALSE) {
+  z <- NULL
+
   dr = AFM.raster(obj,no)
   if (dataOnly) {
     graphics::hist(dr$z, breaks=binNo, plot=FALSE) -> q
@@ -35,3 +37,5 @@ AFM.histogram <- function(obj, no=1, binNo = 200, dataOnly=FALSE) {
   }
   result
 }
+
+globalVariables(c("..density.."))

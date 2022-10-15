@@ -49,6 +49,8 @@ AFM.hhcf <- function(obj, no=1,
                      r.percentage = 80,
                      xi.percentage = 70,
                      verbose=FALSE) {
+  r.nm <- myLabel <- NULL
+
   if (!(class(obj)=="AFMdata")) return(NULL)
   if (obj@x.conv != obj@y.conv) warning('AFM image is distorted in x- and y-direction; HHCF is not correct.')
   dimx = obj@x.pixels

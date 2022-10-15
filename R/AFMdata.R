@@ -143,6 +143,9 @@ AFMdata <- function(data,
              fullFilename))
 }
 
+# cat print
+cpf <- function(...) cat(paste0(sprintf(...), "\n"))
+
 
 #' Imports AFM file
 #'
@@ -206,14 +209,15 @@ AFM.import <- function(filename, verbose=FALSE) {
 #' @export
 print.AFMdata <- function(x, ...) {
   dataType = AFM.dataType(x)
+  if(dataType=="image") imageRes = paste(x@x.nm,"nm  x ",x@y.nm,'nm')
+  if(dataType=="frequency") imageRes = paste(x@z.conv,x@z.units," - ",(x@z.conv + x@x.nm),x@z.units)
 
-  cat("Object:     ",x@instrument,"AFM",dataType,"\n")
-  cat("Description:",x@description,'\n')
-  cat("Channel:    ",x@channel,'\n')
-  if(dataType=="image") cat("            ",x@x.nm,"nm  x ",x@y.nm,'nm \n')
-  if(dataType=="frequency") cat("            ",x@z.conv,x@z.units," - ",(x@z.conv + x@x.nm),x@z.units,' \n')
-  cat("History:    ",x@history,'\n')
-  cat("Filename:   ",x@fullFilename)
+  cpf("Object      : %s AFM %s", x@instrument, dataType)
+  cpf("Description : %s",        x@description)
+  cpf("Channel     : %s",        x@channel)
+  cpf("Resolution  : %s",        imageRes)
+  cpf("History     : %s",        x@history)
+  cpf("Filename    : %s",        x@fullFilename)
 }
 
 #' summary of AFMdata object
@@ -337,6 +341,7 @@ AFM.raster <- function(obj,no=1) {
 #' @export
 plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOption='viridis',
                          addLines=FALSE, redBlue = FALSE, verbose=FALSE, quiet=FALSE, setRange = c(0,0), ...) {
+  y <- z <- myLabel <- freq.Hz <- z.V <- NULL
   # check parameters
   if (no>length(x@channel)) stop("imageNo out of bounds.")
   if (!quiet) cat("Graphing:",x@channel[no])

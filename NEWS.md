@@ -8,6 +8,7 @@
 * load all channels for NID file
 * support NID frequency scan
 * add sample NID frequency scan file
+* fix unassigned variables
 
 
 # nanoscopeAFM 2.0.9
