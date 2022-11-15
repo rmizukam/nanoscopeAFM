@@ -13,3 +13,4 @@
 nanoscopeAFM.Rproj
 inst/doc
 _*.R
+*.RData

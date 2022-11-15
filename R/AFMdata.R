@@ -420,7 +420,7 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
         scale_y_continuous(expand=c(0,0))+
         scale_x_continuous(expand=c(0,0))+
         coord_equal() +
-        geom_line(data = d.line, aes(x/1000,y/1000), size=4, ...) +
+        geom_line(data = d.line, aes(x/1000,y/1000), linewidth=4, ...) +
         geom_text(data = d.line, aes(label=myLabel), vjust=-1, hjust=0, ...) +
         theme_bw() +
         theme(legend.position =c(0.99,0.01),

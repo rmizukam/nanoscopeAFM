@@ -1,3 +1,7 @@
+# nanoscopeAFM 2.0.11
+
+* Load Spectroscopy Data from TIFF (Park AFM files), stored into `data$specHead` and `data$specData`
+
 # nanoscopeAFM 2.0.10
 
 * Update the Vignettes and Documentation
