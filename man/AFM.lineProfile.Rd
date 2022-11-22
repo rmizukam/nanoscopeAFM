@@ -4,18 +4,28 @@
 \alias{AFM.lineProfile}
 \title{Line Profile}
 \usage{
-AFM.lineProfile(obj, x1, y1, x2, y2, verbose = FALSE)
+AFM.lineProfile(
+  obj,
+  x1 = NA,
+  y1 = NA,
+  x2 = NA,
+  y2 = NA,
+  unitPixels = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{obj}{AFMdata object}
 
-\item{x1}{start x position in  units of nm from bottom left}
+\item{x1}{start x position in  units of nm/pixels from bottom left}
 
-\item{y1}{start y position in  units of nm from bottom left}
+\item{y1}{start y position in  units of nm/pixels from bottom left}
 
-\item{x2}{end x position in  units of nm from bottom left}
+\item{x2}{end x position in  units of nm/pixels from bottom left}
 
-\item{y2}{end y position in  units of nm from bottom left}
+\item{y2}{end y position in  units of nm/pixels from bottom left}
+
+\item{unitPixels}{logical, if TRUE, then coordinates are in units of pixels otherwise nm}
 
 \item{verbose}{logical, if \code{TRUE}, output additional information}
 }
@@ -30,6 +40,9 @@ create a profile data line across an image (d), providing
 \examples{
 afmd = AFM.artificialImage(width=128, height=128, type='calibration', verbose=FALSE)
 AFM.lineProfile(afmd, 100, 500, 900, 500) -> afmd2
+AFM.linePlot(afmd2)
+
+AFM.lineProfile(afmd, 1, 1, 128, 128, unitPixels=TRUE) -> afmd2
 AFM.linePlot(afmd2)
 
 }

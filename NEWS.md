@@ -1,5 +1,7 @@
 # nanoscopeAFM 2.0.11
 
+* Use raster click() function to select two points in `AFM.lineProfile()`
+* Suport pixels for profile scans in `AFM.lineProfile()`
 * Load Spectroscopy Data from TIFF (Park AFM files), stored into `data$specHead` and `data$specData`
 
 # nanoscopeAFM 2.0.10
