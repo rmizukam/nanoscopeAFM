@@ -2,14 +2,16 @@
 #'
 #' create a profile data line across an image (d), providing
 #'   the starting point (x1,y1) and end point (x2,y2). The start and end
-#'   points are provided in units of nanometers
+#'   points are provided in units of nanometers or pixels. If the starting
+#'   and end point coordinates are not provided, it will use the `raster::click()`
+#'   function to prompt the user to click on two points on the graph.
 #'
 #' @param obj AFMdata object
 #' @param x1 start x position in  units of nm/pixels from bottom left
 #' @param y1 start y position in  units of nm/pixels from bottom left
 #' @param x2 end x position in  units of nm/pixels from bottom left
 #' @param y2 end y position in  units of nm/pixels from bottom left
-#' @param unitPixels logical, if TRUE, then coordinates are in units of pixels otherwise nm
+#' @param unitPixels logical, if \code{TRUE}, then coordinates are in units of pixels otherwise nm
 #' @param verbose logical, if \code{TRUE}, output additional information
 #' @returns AFMdata object with line data
 #'
@@ -25,13 +27,10 @@
 #'
 #' @seealso \code{\link{AFM.getLine}}, \code{\link{AFM.linePlot}}
 #' @importFrom raster rasterFromXYZ click
-#' @importFrom sp plot
 #' @export
 AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
                             unitPixels = FALSE, verbose=FALSE) {
   AFMcopy <- obj
-  AFMcopy@history <- paste(AFMcopy@history,
-                           "AFM.lineProfile(",x1,",",y1,",",x2,",",y2,");")
   d = AFM.raster(AFMcopy)
   
   width.x = AFMcopy@x.pixels
@@ -50,6 +49,7 @@ AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
     # units are [nm] in this case
     unitPixels = FALSE
   }
+  
   
   if (!unitPixels) {
     range.x = max(d$x) - min(d$x)
@@ -74,6 +74,9 @@ AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
     x2.pixel = x2
     y2.pixel = y2
   }
+  
+  AFMcopy@history <- paste(AFMcopy@history,
+                           "AFM.lineProfile(",x1,",",y1,",",x2,",",y2,",unitPixels=T);")
   
   if (verbose) print(paste("Pixels: (",x1.pixel,",",y1.pixel,") - (",x2.pixel,",",y2.pixel,")"))
 

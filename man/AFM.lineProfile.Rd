@@ -25,7 +25,7 @@ AFM.lineProfile(
 
 \item{y2}{end y position in  units of nm/pixels from bottom left}
 
-\item{unitPixels}{logical, if TRUE, then coordinates are in units of pixels otherwise nm}
+\item{unitPixels}{logical, if \code{TRUE}, then coordinates are in units of pixels otherwise nm}
 
 \item{verbose}{logical, if \code{TRUE}, output additional information}
 }
@@ -35,7 +35,9 @@ AFMdata object with line data
 \description{
 create a profile data line across an image (d), providing
   the starting point (x1,y1) and end point (x2,y2). The start and end
-  points are provided in units of nanometers
+  points are provided in units of nanometers or pixels. If the starting
+  and end point coordinates are not provided, it will use the `raster::click()`
+  function to prompt the user to click on two points on the graph.
 }
 \examples{
 afmd = AFM.artificialImage(width=128, height=128, type='calibration', verbose=FALSE)

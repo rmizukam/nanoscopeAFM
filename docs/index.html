@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">nanoscopeAFM</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.10</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.12</span>
       </span>
     </div>
 
@@ -61,9 +61,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/AFM-Setpoint.html">Setpoint</a>
-    </li>
-    <li>
       <a href="articles/AFM-graphTypes.html">Plot Graph Types</a>
     </li>
     <li>
@@ -80,6 +77,9 @@
     </li>
     <li>
       <a href="articles/advancedAFM-Graph.html">Advanced AFM Image Graphing</a>
+    </li>
+    <li>
+      <a href="articles/afm-setpoint.html">Setpoint</a>
     </li>
   </ul>
 </li>
@@ -104,11 +104,12 @@
 <div class="section level1">
 <div class="page-header"><h1 id="nanoscopeafm-">nanoscopeAFM <img src="reference/figures/logo.png" align="right" alt="" width="250"><a class="anchor" aria-label="anchor" href="#nanoscopeafm-"></a>
 </h1></div>
-<p>Imports and analyzes Atomic Force Microsocpy images; currently four types are supported, images from Nanosurf (.nid), Veeco Multimode Nanoscope III (.000), Park AFM images (.tiff), and Asylum Research AFM images (.ibw).</p>
-<p>There are two main points for the development of this R package:</p>
+<p>Imports and analyzes Atomic Force Microsocpy images; currently four types are supported, images from Nanosurf (.nid), Veeco Multimode Nanoscope III (.000), Park AFM images (.tiff), and Asylum Research AFM Igor images (.ibw).</p>
+<p>This package provides three main advantages:</p>
 <ul>
-<li>Using this data class, a series of images can be analyzed uniformly and quickly.</li>
-<li>Access to each data point allows us to integrate mathematical models directly to the original data.</li>
+<li>Using this data class, a series of images can be analyzed uniformly and quickly within R;</li>
+<li>Access to each data point allows us to integrate mathematical models directly to the original data;</li>
+<li>Part of reproducible data science that processes raw data directly into publishable figures.</li>
 </ul>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>

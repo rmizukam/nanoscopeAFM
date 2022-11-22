@@ -22,14 +22,15 @@ library(nanoscopeAFM)
 
 # Line Profiles
 
-It can be useful to look at a line profile, for example in the height data.
+It can be useful to look at a line profile, for example in the height data. You can use `AFM.lineProfile()` to get an arbitrary line, or `AFM.getLine()`, if you want to select a horizontal line. In the example below, we provide the coordinates in units of [nm], however, you can also provide the coordinates in pixels, if you set `unitPixels` to `TRUE`. Alternatively, if you are not providing any coordinates, you can click on two points to select a profile line.
 
 ```{r}
 library(ggplot2)
 library(scales)
 filename = AFM.getSampleImages(type='tiff')
 afmd = AFM.import(filename)
-afmd2 = AFM.lineProfile(afmd, 200,2050, 800,2050)
+# afmd2 = AFM.lineProfile(afmd)  # click on two points on the image
+afmd2 = AFM.lineProfile(afmd, 200,2050, 800,2050, verbose = TRUE)
 afmd2 = AFM.lineProfile(afmd2, 200,2080, 800,2080)
 
 plot(afmd2, addLines = TRUE, trimPeaks = 0.01)
