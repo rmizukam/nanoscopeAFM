@@ -17,26 +17,26 @@ AFM.lineProfile(
 \arguments{
 \item{obj}{AFMdata object}
 
-\item{x1}{start x position in  units of nm/pixels from bottom left}
+\item{x1}{start x position in  units of nm/pixels from bottom left, if \code{NA}, user will need to click on two points to define profile line}
 
-\item{y1}{start y position in  units of nm/pixels from bottom left}
+\item{y1}{start y position in  units of nm/pixels from bottom left, if \code{NA}, user will need to click on two points to define profile line}
 
-\item{x2}{end x position in  units of nm/pixels from bottom left}
+\item{x2}{end x position in  units of nm/pixels from bottom left, if \code{NA}, user will need to click on two points to define profile line}
 
-\item{y2}{end y position in  units of nm/pixels from bottom left}
+\item{y2}{end y position in  units of nm/pixels from bottom left, if \code{NA}, user will need to click on two points to define profile line}
 
 \item{unitPixels}{logical, if \code{TRUE}, then coordinates are in units of pixels otherwise nm}
 
 \item{verbose}{logical, if \code{TRUE}, output additional information}
 }
 \value{
-AFMdata object with line data
+AFMdata object with line data, use \code{AFM.linePlot()} to graph / tabulate data or \code{plot(addLines=TRUE)} to graph image with lines
 }
 \description{
 create a profile data line across an image (d), providing
   the starting point (x1,y1) and end point (x2,y2). The start and end
   points are provided in units of nanometers or pixels. If the starting
-  and end point coordinates are not provided, it will use the `raster::click()`
+  and end point coordinates are not provided, it will use the \code{raster::click()}
   function to prompt the user to click on two points on the graph.
 }
 \examples{
@@ -46,10 +46,11 @@ AFM.linePlot(afmd2)
 
 AFM.lineProfile(afmd, 1, 1, 128, 128, unitPixels=TRUE) -> afmd2
 AFM.linePlot(afmd2)
+head(AFM.linePlot(afmd2, dataOnly=TRUE))
 
 }
 \seealso{
-\code{\link{AFM.getLine}}, \code{\link{AFM.linePlot}}
+\code{\link{AFM.getLine}}, \code{\link{AFM.linePlot}}, \code{\link{plot.AFMdata}}
 }
 \author{
 Thomas Gredig

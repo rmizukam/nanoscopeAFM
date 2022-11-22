@@ -3,17 +3,17 @@
 #' create a profile data line across an image (d), providing
 #'   the starting point (x1,y1) and end point (x2,y2). The start and end
 #'   points are provided in units of nanometers or pixels. If the starting
-#'   and end point coordinates are not provided, it will use the `raster::click()`
+#'   and end point coordinates are not provided, it will use the \code{raster::click()}
 #'   function to prompt the user to click on two points on the graph.
 #'
 #' @param obj AFMdata object
-#' @param x1 start x position in  units of nm/pixels from bottom left
-#' @param y1 start y position in  units of nm/pixels from bottom left
-#' @param x2 end x position in  units of nm/pixels from bottom left
-#' @param y2 end y position in  units of nm/pixels from bottom left
+#' @param x1 start x position in  units of nm/pixels from bottom left, if \code{NA}, user will need to click on two points to define profile line
+#' @param y1 start y position in  units of nm/pixels from bottom left, if \code{NA}, user will need to click on two points to define profile line
+#' @param x2 end x position in  units of nm/pixels from bottom left, if \code{NA}, user will need to click on two points to define profile line
+#' @param y2 end y position in  units of nm/pixels from bottom left, if \code{NA}, user will need to click on two points to define profile line
 #' @param unitPixels logical, if \code{TRUE}, then coordinates are in units of pixels otherwise nm
 #' @param verbose logical, if \code{TRUE}, output additional information
-#' @returns AFMdata object with line data
+#' @returns AFMdata object with line data, use \code{AFM.linePlot()} to graph / tabulate data or \code{plot(addLines=TRUE)} to graph image with lines
 #'
 #' @author Thomas Gredig
 #'
@@ -21,21 +21,23 @@
 #' afmd = AFM.artificialImage(width=128, height=128, type='calibration', verbose=FALSE)
 #' AFM.lineProfile(afmd, 100, 500, 900, 500) -> afmd2
 #' AFM.linePlot(afmd2)
-#' 
+#'
 #' AFM.lineProfile(afmd, 1, 1, 128, 128, unitPixels=TRUE) -> afmd2
 #' AFM.linePlot(afmd2)
+#' head(AFM.linePlot(afmd2, dataOnly=TRUE))
 #'
-#' @seealso \code{\link{AFM.getLine}}, \code{\link{AFM.linePlot}}
+#' @seealso \code{\link{AFM.getLine}}, \code{\link{AFM.linePlot}}, \code{\link{plot.AFMdata}}
+#'
 #' @importFrom raster rasterFromXYZ click
 #' @export
 AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
                             unitPixels = FALSE, verbose=FALSE) {
   AFMcopy <- obj
   d = AFM.raster(AFMcopy)
-  
+
   width.x = AFMcopy@x.pixels
   width.y = AFMcopy@y.pixels
-  
+
   # if no coordinates are provided, use graphical interface
   # to prompt for coordinates
   if (is.na(x1) | is.na(x2) | is.na(y1) | is.na(y2)) {
@@ -49,8 +51,8 @@ AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
     # units are [nm] in this case
     unitPixels = FALSE
   }
-  
-  
+
+
   if (!unitPixels) {
     range.x = max(d$x) - min(d$x)
     range.y = max(d$y) - min(d$y)
@@ -74,10 +76,10 @@ AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
     x2.pixel = x2
     y2.pixel = y2
   }
-  
+
   AFMcopy@history <- paste(AFMcopy@history,
                            "AFM.lineProfile(",x1,",",y1,",",x2,",",y2,",unitPixels=T);")
-  
+
   if (verbose) print(paste("Pixels: (",x1.pixel,",",y1.pixel,") - (",x2.pixel,",",y2.pixel,")"))
 
   Dx = abs(x2.pixel - x1.pixel)
@@ -118,39 +120,3 @@ AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
   AFMcopy
 }
 
-#' Plots AFM line
-#'
-#' @param obj AFMdata object
-#' @param no channel number
-#' @author Thomas Gredig
-#' @param dataOnly if \code{TRUE} no graph is returned
-#' @importFrom ggplot2 ggplot geom_path scale_color_discrete xlab theme_bw theme
-#' @examples
-#' filename = AFM.getSampleImages(type='ibw')
-#' d = AFM.import(filename)
-#' AFM.lineProfile(d, 0,0, 2000,2000) -> d1
-#' AFM.lineProfile(d1, 0,0, 100,2500) -> d2
-#' AFM.linePlot(d2)
-#' plot(d2,addLines=TRUE)
-#' @export
-AFM.linePlot <- function(obj,no=1,dataOnly=FALSE) {
-  if (is.null(obj@data$line)) { warning("No lines in object."); return() }
-  x <- z <- type <- NULL
-  zData = obj@data$z[[no]]
-  i=1
-  r = data.frame()
-  for(ln in obj@data$line) {
-    dz = data.frame(x=obj@data$line.nm[[i]],z=zData[ln+1])
-    dz$type=i
-    i=i+1
-    r=rbind(r, dz)
-  }
-  if (dataOnly) return(r)
-  ggplot(r, aes(x,z,col=as.factor(type))) +
-    geom_path() +
-    xlab('d (nm)') +
-    scale_color_discrete('Line No') +
-    theme_bw() +
-    theme(legend.position = c(0.01,0.99),
-          legend.justification = c(0,1))
-}
