@@ -1,6 +1,7 @@
 # nanoscopeAFM 2.0.12
 
 * read images that are not square
+* fix units for Phase image in Park AFM images
 * update NanoScope image reader for V8
 * `AFM.dataType()` has new type of "spectroscopy"
 * Use `raster::click()` function to select two points in `AFM.lineProfile()` if coordinates are not provided

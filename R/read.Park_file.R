@@ -114,7 +114,7 @@ read.Park_file.v2 <- function(filename) {
     imWidth = imHeight
   }
   channels = params$sourceName
-  units = 'nm'
+  units = params$UnitZ
   description = params$imageMode
 
   # Park TIFF images only have 1 channel
