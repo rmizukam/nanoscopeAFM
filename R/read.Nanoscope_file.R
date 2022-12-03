@@ -94,8 +94,8 @@ read.Nanoscope_file <- function(filename, no=1, headerOnly = FALSE, verbose=FALS
 
   if (length(err.msg)>0) { warning(paste("NID read error:", err.msg)); return(data.frame()) }
 
-  df = data.frame(x = rep(1:im.line.num, im.line.sam),
-                 y = rep(1:im.line.sam, each=im.line.num),
+  df = data.frame(x = rep(1:im.line.sam, im.line.num),
+                 y = rep(1:im.line.num, each=im.line.sam),
                  z,
                  x.nm,
                  y.nm,
