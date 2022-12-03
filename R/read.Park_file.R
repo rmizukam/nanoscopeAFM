@@ -48,7 +48,7 @@ read.String <- function(to.read, nLen) {
 }
 
 # Loading header information for spectroscopy
-loadBinaryAFMspectrumHead <- function(filename, start, nLen) {
+loadBinaryAFMspectrumHead <- function(filename, dataStart, nLen) {
   MaxSpectraChannels = 8
 
   to.read = file(filename, 'rb')

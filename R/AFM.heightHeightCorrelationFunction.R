@@ -14,16 +14,17 @@
 #' Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).
 #'
 #' @author Thomas Gredig
+#'
 #' @param obj AFMdata object
-#' @param no Channel number
-#' @param degRes resolution of angle, the higher the more, should be >100, 1000 is also good
+#' @param no channel number
 #' @param addFit if \code{TRUE} a fit is added to the data
 #' @param numIterations Number of iterations (must be > 1000), but 1e6 recommended
+#' @param degRes resolution of angle, the higher the better, should be >100, 1000 is also good, but takes more time
 #' @param r.percentage a number from 10 to 100 representing the distance to compute, since the image is
 #'    square, there are not as many points that are separated by the full length, 80 is a good value, if there
 #'    is no fit, the value can be reduced to 70 or 60.
 #' @param xi.percentage a number from 10 to 100 representing where correlation length could be found from maximum (used for fitting)
-#' @param dataOnly if \code{TRUE} only return data frame, otherwise returns a graph
+#' @param dataOnly if \code{TRUE} returns data frame, otherwise returns a graph
 #' @param verbose output time if \code{TRUE}
 #'
 #' @importFrom ggplot2 ggplot aes geom_point geom_path scale_x_log10 scale_y_log10 theme_bw geom_label theme
@@ -42,21 +43,26 @@
 ##################################################
 #' @export
 AFM.hhcf <- function(obj, no=1,
-                     degRes = 100,
                      numIterations=1000,
                      addFit = TRUE,
                      dataOnly = FALSE,
+                     degRes = 100,
                      r.percentage = 80,
                      xi.percentage = 70,
                      verbose=FALSE) {
   r.nm <- myLabel <- NULL
 
-  if (!(class(obj)=="AFMdata")) return(NULL)
+  if (!is(obj, "AFMdata")) return(NULL)
   if (obj@x.conv != obj@y.conv) warning('AFM image is distorted in x- and y-direction; HHCF is not correct.')
   dimx = obj@x.pixels
   dimy = obj@y.pixels
+  if (verbose) print(paste("AFM image is ",dimx, "by",dimy," pixels."))
   q = obj@data$z[[no]]
-  if (numIterations<1000) numIterations=1000
+  if (numIterations<1000) {
+    numIterations=1000
+    if (verbose) print("numIterations must be at least 1000, reset to 1000.")
+  }
+
   # generate random numbers to pick starting positions
   # faster than computing all possible locations
   px1 = round(runif(numIterations, min=1, max=dimx))
@@ -67,6 +73,7 @@ AFM.hhcf <- function(obj, no=1,
   lq = c()
   t.start = as.numeric(Sys.time())
   maxR = round(dimx*r.percentage/100)
+  if (verbose) print("Computing r from 1 pixel to",maxR,"pixels maximum. Adjust with r.percentage parameter.")
   for(r in 1:maxR) {
     # compute second point
     px2 = round(px1+r*cos(theta))
