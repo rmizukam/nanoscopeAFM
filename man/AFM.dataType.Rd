@@ -10,7 +10,7 @@ AFM.dataType(obj)
 \item{obj}{AFMdata object}
 }
 \value{
-string with AFM type, "image", "force", "frequency"
+string with AFM type, "image", "force", "frequency", "spectroscopy"
 }
 \description{
 returns type of AFM image

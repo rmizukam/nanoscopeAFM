@@ -7,10 +7,10 @@
 AFM.hhcf(
   obj,
   no = 1,
-  degRes = 100,
   numIterations = 1000,
   addFit = TRUE,
   dataOnly = FALSE,
+  degRes = 100,
   r.percentage = 80,
   xi.percentage = 70,
   verbose = FALSE
@@ -19,15 +19,15 @@ AFM.hhcf(
 \arguments{
 \item{obj}{AFMdata object}
 
-\item{no}{Channel number}
-
-\item{degRes}{resolution of angle, the higher the more, should be >100, 1000 is also good}
+\item{no}{channel number}
 
 \item{numIterations}{Number of iterations (must be > 1000), but 1e6 recommended}
 
 \item{addFit}{if \code{TRUE} a fit is added to the data}
 
-\item{dataOnly}{if \code{TRUE} only return data frame, otherwise returns a graph}
+\item{dataOnly}{if \code{TRUE} returns data frame, otherwise returns a graph}
+
+\item{degRes}{resolution of angle, the higher the better, should be >100, 1000 is also good, but takes more time}
 
 \item{r.percentage}{a number from 10 to 100 representing the distance to compute, since the image is
 square, there are not as many points that are separated by the full length, 80 is a good value, if there

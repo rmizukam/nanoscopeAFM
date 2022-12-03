@@ -80,3 +80,8 @@ test_that("valid AFM files", {
   expect_true(!AFM.isFileValid("random-nonexistant-file.txt"))
 })
 
+test_that("Byte to Double Conversion", {
+  expect_equal(byte2double(c(0,0,0,0,0,0,8,64)),3)
+  expect_equal(int2double(c(0,0,0,64*256+8)),3)
+  expect_equal(int2double(c(0,0,0,16368)),1)
+})

@@ -209,7 +209,7 @@ AFM.import <- function(filename, verbose=FALSE) {
 #' @export
 print.AFMdata <- function(x, ...) {
   dataType = AFM.dataType(x)
-  if(dataType=="image") imageRes = paste(x@x.nm,"nm  x ",x@y.nm,'nm')
+  if(dataType=="image" || dataType == "spectroscopy") imageRes = paste(x@x.nm,"nm  x ",x@y.nm,'nm')
   if(dataType=="frequency") imageRes = paste(x@z.conv,x@z.units," - ",(x@z.conv + x@x.nm),x@z.units)
 
   cpf("Object      : %s AFM %s", x@instrument, dataType)
@@ -234,7 +234,7 @@ summary.AFMdata <- function(object,...) {
   if (purrr::is_empty(object@description)) object@description=""
 
   dataType = AFM.dataType(object)
-  if(dataType == 'image') {
+  if(dataType == 'image' || dataType == 'spectroscopy') {
     r = data.frame(
       objectect = paste(object@instrument,dataType),
       description = paste(object@description),
@@ -245,7 +245,7 @@ summary.AFMdata <- function(object,...) {
     )
     for(i in seq_len(length(r$channel))) {
       d = AFM.raster(object,i)
-      r$z.min[i]=min(d$z)
+      r$z.min[i] = min(d$z)
       r$z.max[i] = max(d$z)
     }
     r$z.units = paste(object@z.units)
@@ -262,6 +262,7 @@ summary.AFMdata <- function(object,...) {
       z.units = object@z.units
     )
   }
+  r$dataType = dataType
   r
 }
 
@@ -285,7 +286,7 @@ summary.AFMdata <- function(object,...) {
 #' @export
 AFM.raster <- function(obj,no=1) {
   if(!isS4(obj)) { stop("Not an S4 object, AFMdata object expected.") }
-  if (AFM.isImage(obj)) {
+  if (AFM.isImage(obj) || (AFM.dataType(obj)=='spectroscopy')) {
     dr = data.frame(
       x = rep(0:(obj@x.pixels-1),obj@y.pixels)*obj@x.conv,
       y = rep(0:(obj@y.pixels-1),each=obj@x.pixels)*obj@y.conv,
@@ -347,7 +348,7 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
   if (!quiet) cat("Graphing:",x@channel[no])
   if (verbose) print(paste("History:",x@history))
 
-  if (AFM.isImage(x)) {
+  if (AFM.isImage(x) || AFM.dataType(x)=='spectroscopy') {
     d = AFM.raster(x,no)
     zLab = paste0(x@channel[no],' (',x@z.units[no],')')
     zLab = gsub('Retrace|Trace','',zLab)
@@ -512,7 +513,7 @@ AFM.isImage <- function(obj) {
 #' returns type of AFM image
 #'
 #' @param obj AFMdata object
-#' @return string with AFM type, "image", "force", "frequency"
+#' @return string with AFM type, "image", "force", "frequency", "spectroscopy"
 #'
 #' @author Thomas Gredig
 #' @examples
@@ -522,6 +523,7 @@ AFM.isImage <- function(obj) {
 AFM.dataType <- function(obj) {
   if (names(obj@data)[1]=="freq") return("frequency")
   if (((obj@x.pixels <= 1) || (obj@y.pixels <= 1))) return("force")
+  if ((length(grep("specHead", names(obj@data)))>0) && (length(obj@data$specHead)>0)) return("spectroscopy")
   return("image")
 }
 

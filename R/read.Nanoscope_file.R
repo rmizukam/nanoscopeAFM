@@ -1,5 +1,5 @@
 # Returns Veeco NanoScope AFM image with Scaling
-read.Nanoscope_file <- function(filename, no=1, headerOnly = FALSE) {
+read.Nanoscope_file <- function(filename, no=1, headerOnly = FALSE, verbose=FALSE) {
   err.msg = c()
   # load header
   header = c()
@@ -11,7 +11,9 @@ read.Nanoscope_file <- function(filename, no=1, headerOnly = FALSE) {
     if (first_line == "Frame=Frequency sweep") { err.msg = c(err.msg,"Frequency sweep file."); break;}
     header=c(header, first_line)
   }
-  if (length(err.msg)>0) { warning(paste("NID read error:", err.msg)); return(data.frame()) }
+  if (length(err.msg)>0) { warning(paste("Nanoscope read error:", err.msg)); return(data.frame()) }
+
+
 
   # analyze header
   header = gsub('\\\\','',header)
@@ -21,8 +23,17 @@ read.Nanoscope_file <- function(filename, no=1, headerOnly = FALSE) {
     value = gsub(".*?:(.*)","\\1",header),
     stringsAsFactors = FALSE
   )
-  Volt2nanometer = HEADER.INFO$value[grep('Sens. Zscan', HEADER.INFO$name)]
-  Volt2nanometer = as.numeric(gsub(' V(.*)nm/V','\\1',Volt2nanometer))
+  if (verbose) print(paste("Header has", nrow(HEADER.INFO),"items."))
+
+
+  # get version
+  version = HEADER.INFO$value[grep('^Version',HEADER.INFO$name)]
+  version = as.numeric(gsub("0x",'',version))/1e6
+  if (verbose) print(paste("Header version:",version))
+
+  # could be Sens. Zscan or Sens. Zsens (version 8+)
+  Volt2nanometer = HEADER.INFO$value[grep('Sens. Zs', HEADER.INFO$name)]
+  Volt2nanometer = as.numeric(gsub(' V(.*)nm/V','\\1',Volt2nanometer))[1] # just use first
   #write.csv(HEADER.INFO, file='VEECO-Header.csv')
 
   # parse out parameters that are relevant to image number no
@@ -46,6 +57,8 @@ read.Nanoscope_file <- function(filename, no=1, headerOnly = FALSE) {
   im.zMagnify = getHeaderStr('magnify')
   im.zMagnifyFac = as.numeric(gsub('.*\\](.*)','\\1',im.zMagnify))
   im.image.size = getHeaderStr('Scan size')
+  if (length(im.image.size)==0) im.image.size = getHeaderStr('Scan Size')
+
   im.bytes.pixel = getHeaderNumeric('Bytes/pixel')
   im.scanDirection = getHeaderStr('Line direction')
   im.Zscale = getHeaderStrVal('Z scale:')
@@ -71,8 +84,8 @@ read.Nanoscope_file <- function(filename, no=1, headerOnly = FALSE) {
   step.nm = im.height.nm / im.line.num
 
   # load image
-  x.nm = rep(seq(from=0, to=im.width.nm, length=im.line.num), im.line.num)
-  y.nm = rep(seq(from=0, to=im.height.nm, length=im.line.num), each=im.line.num)
+  x.nm = rep(seq(from=0, to=im.width.nm, length=im.line.sam), im.line.num)
+  y.nm = rep(seq(from=0, to=im.height.nm, length=im.line.num), each=im.line.sam)
 
   #print(paste("Loading at offset",im.dataOffset," (",im.dataLength,"bytes)"))
   seek(con, where  = im.dataOffset) # skip header
@@ -81,8 +94,8 @@ read.Nanoscope_file <- function(filename, no=1, headerOnly = FALSE) {
 
   if (length(err.msg)>0) { warning(paste("NID read error:", err.msg)); return(data.frame()) }
 
-  df = data.frame(x = rep(1:im.line.num, im.line.num),
-                 y = rep(1:im.line.num, each=im.line.num),
+  df = data.frame(x = rep(1:im.line.num, im.line.sam),
+                 y = rep(1:im.line.sam, each=im.line.num),
                  z,
                  x.nm,
                  y.nm,

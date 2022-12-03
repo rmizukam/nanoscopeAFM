@@ -1,4 +1,4 @@
-pandoc: '2.18'
+pandoc: 2.19.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
@@ -9,7 +9,7 @@ articles:
   Height-Height-Correlation-Function: Height-Height-Correlation-Function.html
   LineProfiles: LineProfiles.html
   advancedAFM-Graph: advancedAFM-Graph.html
-last_built: 2022-11-22T16:45Z
+last_built: 2022-12-03T07:58Z
 urls:
   reference: https://thomasgredig.github.io/nanoscopeAFM/reference
   article: https://thomasgredig.github.io/nanoscopeAFM/articles

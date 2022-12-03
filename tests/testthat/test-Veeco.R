@@ -26,3 +26,4 @@ test_that("Veeco image roughness check", {
   expect_equal(d$Ra, 3.05, tolerance = 1e-3)
   expect_equal(d$Rq, 10.18, tolerance = 1e-3)
 })
+

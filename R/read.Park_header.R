@@ -331,6 +331,24 @@ byte2double <- function(v) {
   dbl.mantissa * 2^(dbl.exp-36) * sign((dbl.sgn.digit-0.5)*(-2))
 }
 
+# v = vector with 8 bytes containing sign+11bit exp + 51bit mantissa
+# ________________________________________
+# returns double number
+int2double <- function(v4) {
+  if (sum(v4)==0) return(0)
+  byte2double(c(
+    v4[1] %% 256,
+    floor(v4[1]/256),
+    v4[2] %% 256,
+    floor(v4[2]/256),
+    v4[3] %% 256,
+    floor(v4[3]/256),
+    v4[4] %% 256,
+    floor(v4[4]/256)
+  ))
+}
+
+
 
 # afm.params = 580 byte vector with header information
 # ________________________________________

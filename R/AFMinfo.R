@@ -123,11 +123,12 @@ AFMinfo.item <- function(obj, itemName="") {
 #' summary(h1)
 #' @export
 summary.AFMinfo <- function(object, ...) {
-  cat('AFM image type:  ', object$type, "\n")
-  cat('Resolution:      ', object$widthPixel, "x", object$heightPixel,'\n')
-  cat('Channels:        ', object$noChannels,'\n')
-  cat('Scan rate (Hz):  ', object$scanRate.Hz,'\n')
-  cat('Scan Angle (deg):', object$scanAngle,'\n')
-  cat('Notes:           ', object$note,'\n')
-  cat('Data Items:      ', nrow(object$data),'\n')
+  cat('AFM Image Type:       ', object$type, "\n")
+  cat('Resolution:           ', object$widthPixel, "x", object$heightPixel,'\n')
+  cat('Channels:             ', object$noChannels,'\n')
+  cat('Resonance Freq (Hz):  ', object$resFrequency,'\n')
+  cat('Scan Rate (Hz):       ', object$scanRate.Hz,'\n')
+  cat('Scan Angle (deg):     ', object$scanAngle,'\n')
+  cat('Notes:                ', object$note,'\n')
+  cat('Data Items:           ', length(object$data),'\n')
 }
