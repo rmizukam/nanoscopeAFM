@@ -2,14 +2,23 @@
 % Please edit documentation in R/AFM.getLine.R
 \name{AFM.getLine}
 \alias{AFM.getLine}
-\title{AFM line}
+\title{AFM horizontal or vertical profile line}
 \usage{
-AFM.getLine(obj, yPixel = 1, no = 1, dataOnly = FALSE, verbose = FALSE)
+AFM.getLine(
+  obj,
+  xPixel = NA,
+  yPixel = NA,
+  no = 1,
+  dataOnly = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{obj}{AFMdata object}
 
-\item{yPixel}{line number from 1 to max yPixel}
+\item{xPixel}{vertical line at this pixel (1 to image resolution), if \code{NA} will use yPixel}
+
+\item{yPixel}{horizontal line at this pixel (1 to image resolution), if \code{NA} will use xPixel}
 
 \item{no}{channel number}
 
@@ -22,8 +31,8 @@ AFMdata object with line data or data frame with data
 }
 \description{
 create a profile data line for a particular
-position given in pixels; easy way to reiterate
-through all lines in an image
+position given in pixels; either a horizontal or a vertical
+line; this is also an easy way to reiterate through all lines of an image
 }
 \examples{
 filename = AFM.getSampleImages()[1]
