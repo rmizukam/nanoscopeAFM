@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoscopeAFM</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.12</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.13</span>
       </span>
     </div>
 
@@ -61,7 +61,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/AFM-Setpoint.html">Setpoint</a>
+      <a href="../articles/AFM-advancedGraph.html">Advanced AFM Image Graphing</a>
     </li>
     <li>
       <a href="../articles/AFM-graphTypes.html">Plot Graph Types</a>
@@ -70,16 +70,19 @@
       <a href="../articles/AFM-imageSummary.html">AFM Image Summary</a>
     </li>
     <li>
+      <a href="../articles/AFM-setPoint.html">Setpoint</a>
+    </li>
+    <li>
+      <a href="../articles/ForceCurves.html">ForceCurves</a>
+    </li>
+    <li>
       <a href="../articles/FrequencySweep.html">FrequencySweep</a>
     </li>
     <li>
-      <a href="../articles/Height-Height-Correlation-Function.html">Height-Height-Correlation-Function</a>
+      <a href="../articles/HHCF.html">Height-Height-Correlation-Function</a>
     </li>
     <li>
       <a href="../articles/LineProfiles.html">Line Profiles</a>
-    </li>
-    <li>
-      <a href="../articles/advancedAFM-Graph.html">Advanced AFM Image Graphing</a>
     </li>
   </ul>
 </li>
@@ -104,7 +107,7 @@
             
       
       
-      <div class="hidden name"><code>AFM-Setpoint.Rmd</code></div>
+      <div class="hidden name"><code>AFM-setPoint.Rmd</code></div>
 
     </div>
 
@@ -117,6 +120,7 @@
 retrieving the <code>AFMinfo</code>. Here is an example:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thomasgredig.github.io/nanoscopeAFM/">nanoscopeAFM</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Please cite nanoscopeAFM ,see https://doi.org/10.5281/zenodo.5770772</span></span>
 <span></span>
 <span><span class="co"># loading the test file from the nanoscopeAFM package</span></span>
 <span><span class="va">filename</span> <span class="op">=</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,<span class="st">"AR_20211011.ibw"</span>,package<span class="op">=</span><span class="st">"nanoscopeAFM"</span><span class="op">)</span><span class="op">)</span></span>
@@ -127,13 +131,14 @@ retrieving the <code>AFMinfo</code>. Here is an example:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate a summary of the AFMinfo object</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">h</span><span class="op">)</span></span>
-<span><span class="co">#&gt; AFM image type:   Cypher </span></span>
-<span><span class="co">#&gt; Resolution:       128 x 128 </span></span>
-<span><span class="co">#&gt; Channels:         4 </span></span>
-<span><span class="co">#&gt; Scan rate (Hz):   2.0032 </span></span>
-<span><span class="co">#&gt; Scan Angle (deg): </span></span>
-<span><span class="co">#&gt; Notes:            KC200, FePc, KC20170720Si,KC20170720Si_KC20 </span></span>
-<span><span class="co">#&gt; Data Items:       706</span></span></code></pre></div>
+<span><span class="co">#&gt; AFM Image Type:        Cypher </span></span>
+<span><span class="co">#&gt; Resolution:            128 x 128 </span></span>
+<span><span class="co">#&gt; Channels:              4 </span></span>
+<span><span class="co">#&gt; Resonance Freq (Hz):   257190.3 </span></span>
+<span><span class="co">#&gt; Scan Rate (Hz):        2.0032 </span></span>
+<span><span class="co">#&gt; Scan Angle (deg):      </span></span>
+<span><span class="co">#&gt; Notes:                 KC200, FePc, KC20170720Si,KC20170720Si_KC20 </span></span>
+<span><span class="co">#&gt; Data Items:            2</span></span></code></pre></div>
 <p>Finding additional special information, using the function
 <code>AFMinfo.item</code>; note that the search string is
 case-sensitive.</p>

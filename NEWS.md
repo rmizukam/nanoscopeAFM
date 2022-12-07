@@ -1,3 +1,8 @@
+# nanoscopeAFM 2.0.13
+
+* extract force-distance spectroscopy curves with `AFM.specData()`
+* add sample spectroscopy image
+
 # nanoscopeAFM 2.0.12
 
 * read images that are not square

@@ -1,8 +1,6 @@
 filename = AFM.getSampleImages(type='ibw')
 afmd = AFM.import(filename)
 
-
-
 test_that("AFMdata object", {
   a = AFMdata(instrument='Cypher')
   expect_true(isS4(a))
@@ -10,7 +8,7 @@ test_that("AFMdata object", {
 
 
 test_that("AFM.flatten: flattening image", {
-  filename = system.file("extdata", "NanoSurf_20160301.nid",package="nanoscopeAFM")
+  filename = AFM.getSampleImages('nid')
   d = AFM.import(filename)
   d2 = AFM.flatten(d)
   expect_equal(nrow(d@data),nrow(d2@data))
@@ -18,8 +16,8 @@ test_that("AFM.flatten: flattening image", {
 
 test_that("AFM.getSampleImages: find sample files", {
   file.list = AFM.getSampleImages()
-  expect_equal(length(file.list),5)
-  expect_true(file.exists(file.list[1]))
+  expect_equal(length(file.list),6)
+  expect_true(file.exists(AFM.getSampleImages(type='ibw')))
 })
 
 test_that("line Profile", {
@@ -46,7 +44,7 @@ test_that("print AFMdata", {
 
 
 test_that("summary AFMinfo", {
-  h = AFMinfo(AFM.getSampleImages(type='ibw')[1])
+  h = AFMinfo(AFM.getSampleImages(type='ibw'))
   expect_output(summary(h), "Scan Angle")
 })
 

@@ -23,7 +23,7 @@ data frame or ggplot
 Histogram of AFM image
 }
 \examples{
-d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+d = AFM.import(AFM.getSampleImages(type='ibw'))
 head(AFM.histogram(d, dataOnly=TRUE),n=20)
 AFM.histogram(d)
 

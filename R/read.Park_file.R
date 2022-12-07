@@ -71,20 +71,20 @@ read.Park_file.v2 <- function(filename) {
 
   # check if it contains spectroscopy data
   if (params$imageType==2) {
-    warning("Contains spectroscopy data.")
+    # warning("Contains spectroscopy data.")
     # Load Spectroscopy Header
     dataStart = tiffTags[which(tiffTags$tag==50438),]$value
     dataLen = tiffTags[which(tiffTags$tag==50438),]$count
     # load with data type Int32
     spec.head = loadBinaryAFMspectrumHead(filename, dataStart, dataLen)
-    warning(paste("Head Length for Spectroscopy Header:", dataLen))
+    # warning(paste("Head Length for Spectroscopy Header:", dataLen))
 
     # loadBinaryAFMspectrumHead(filename, dataStart, dataLen)
     # Load Spectroscopy Data
     dataStart = tiffTags[which(tiffTags$tag==50439),]$value
     dataLen = tiffTags[which(tiffTags$tag==50439),]$count
     spec.data = loadBinaryAFMDatafromTIFF(filename, dataStart, dataLen, params$nDataType)
-    warning(paste("Data Length for Spectroscopy Data:", dataLen))
+    # warning(paste("Data Length for Spectroscopy Data:", dataLen))
     # print(dataLen)
   } else {
     spec.data = data.frame()

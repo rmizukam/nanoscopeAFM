@@ -16,7 +16,7 @@ AFM.isImage(obj)
 checks if the object is an AFM image
 }
 \examples{
-d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+d = AFM.import(AFM.getSampleImages(type='ibw'))
 AFM.isImage(d)
 }
 \author{

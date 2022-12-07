@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">nanoscopeAFM</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.12</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.13</span>
       </span>
     </div>
 
@@ -61,7 +61,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/AFM-Setpoint.html">Setpoint</a>
+      <a href="articles/AFM-advancedGraph.html">Advanced AFM Image Graphing</a>
     </li>
     <li>
       <a href="articles/AFM-graphTypes.html">Plot Graph Types</a>
@@ -70,16 +70,19 @@
       <a href="articles/AFM-imageSummary.html">AFM Image Summary</a>
     </li>
     <li>
+      <a href="articles/AFM-setPoint.html">Setpoint</a>
+    </li>
+    <li>
+      <a href="articles/ForceCurves.html">ForceCurves</a>
+    </li>
+    <li>
       <a href="articles/FrequencySweep.html">FrequencySweep</a>
     </li>
     <li>
-      <a href="articles/Height-Height-Correlation-Function.html">Height-Height-Correlation-Function</a>
+      <a href="articles/HHCF.html">Height-Height-Correlation-Function</a>
     </li>
     <li>
       <a href="articles/LineProfiles.html">Line Profiles</a>
-    </li>
-    <li>
-      <a href="articles/advancedAFM-Graph.html">Advanced AFM Image Graphing</a>
     </li>
   </ul>
 </li>
@@ -104,7 +107,7 @@
 <div class="section level1">
 <div class="page-header"><h1 id="nanoscopeafm-">nanoscopeAFM <img src="reference/figures/logo.png" align="right" alt="" width="250"><a class="anchor" aria-label="anchor" href="#nanoscopeafm-"></a>
 </h1></div>
-<p>Imports and analyzes Atomic Force Microsocpy images; currently four types are supported, images from Nanosurf (.nid), Veeco Multimode Nanoscope III (.000), Park AFM images (.tiff), and Asylum Research AFM Igor images (.ibw).</p>
+<p>Imports and analyzes Atomic Force Microsocpy images; currently four types are supported, images from Nanosurf (.nid), Bruker / Veeco Multimode Nanoscope III (.000), Park AFM images (.tiff), and Asylum Research AFM Igor images (.ibw).</p>
 <p>This package provides three main advantages:</p>
 <ul>
 <li>Using this data class, a series of images can be analyzed uniformly and quickly within R;</li>
@@ -135,7 +138,7 @@
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>Complete descriptions for <a href="https://thomasgredig.github.io/nanoscopeAFM/">nanoscopeAFM library functions</a> and examples in the <a href="https://thomasgredig.github.io/nanoscopeAFM/articles/">Article Vignettes</a>.</p>
+<p>There is a complete description for <a href="https://thomasgredig.github.io/nanoscopeAFM/">nanoscopeAFM library functions</a>; examples in the <a href="https://thomasgredig.github.io/nanoscopeAFM/articles/">Article Vignettes</a> are also available.</p>
 <div class="section level3">
 <h3 id="afm-data">AFM data<a class="anchor" aria-label="anchor" href="#afm-data"></a>
 </h3>
@@ -148,6 +151,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span></code></pre></div>
+<p>More information on graphing AFM images are found in the <a href="https://thomasgredig.github.io/nanoscopeAFM/articles/AFM-graphTypes.html">AFM Image Graph Type Vignette</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="afm-info">AFM info<a class="anchor" aria-label="anchor" href="#afm-info"></a>

@@ -20,7 +20,7 @@ itemName empty.'><meta property="og:image" content="https://thomasgredig.github.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoscopeAFM</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.12</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.13</span>
       </span>
     </div>
 
@@ -35,7 +35,7 @@ itemName empty.'><meta property="og:image" content="https://thomasgredig.github.
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/AFM-Setpoint.html">Setpoint</a>
+      <a href="../articles/AFM-advancedGraph.html">Advanced AFM Image Graphing</a>
     </li>
     <li>
       <a href="../articles/AFM-graphTypes.html">Plot Graph Types</a>
@@ -44,16 +44,19 @@ itemName empty.'><meta property="og:image" content="https://thomasgredig.github.
       <a href="../articles/AFM-imageSummary.html">AFM Image Summary</a>
     </li>
     <li>
+      <a href="../articles/AFM-setPoint.html">Setpoint</a>
+    </li>
+    <li>
+      <a href="../articles/ForceCurves.html">ForceCurves</a>
+    </li>
+    <li>
       <a href="../articles/FrequencySweep.html">FrequencySweep</a>
     </li>
     <li>
-      <a href="../articles/Height-Height-Correlation-Function.html">Height-Height-Correlation-Function</a>
+      <a href="../articles/HHCF.html">Height-Height-Correlation-Function</a>
     </li>
     <li>
       <a href="../articles/LineProfiles.html">Line Profiles</a>
-    </li>
-    <li>
-      <a href="../articles/advancedAFM-Graph.html">Advanced AFM Image Graphing</a>
     </li>
   </ul></li>
 <li>
@@ -107,7 +110,7 @@ on the instrument; to find possible item names, leave
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">filename</span> <span class="op">=</span> <span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'003'</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">filename</span> <span class="op">=</span> <span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'veeco'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="AFMinfo.html">AFMinfo</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">allNames</span> <span class="op">=</span> <span class="fu">AFMinfo.item</span><span class="op">(</span><span class="va">h</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">AFMinfo.item</span><span class="op">(</span><span class="va">h</span>,<span class="st">"Description"</span><span class="op">)</span></span></span>

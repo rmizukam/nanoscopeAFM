@@ -47,7 +47,7 @@ The computation is implemented in this package as follows, the image is flattene
 filename = AFM.getSampleImages(type='tiff')
 a = AFM.import(filename)
 a = AFM.flatten(a)
-AFM.hhcf(a, numIterations= 2e5)
+AFM.hhcf(a, numIterations= 3e5)
 ```
 
 The correlation function data can be further analyzed, after exporting the data to a data frame:

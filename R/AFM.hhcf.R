@@ -38,12 +38,12 @@
 #' a = AFM.flatten(a)
 #' r = AFM.hhcf(a, numIterations = 5e5, dataOnly = TRUE)
 #' head(r)                          # output HHCF data
-#' AFM.hhcf(a, dataOnly = FALSE)    # output graph
+#' AFM.hhcf(a, numIterations = 5e5)    # output graph
 #'
 ##################################################
 #' @export
 AFM.hhcf <- function(obj, no=1,
-                     numIterations=1000,
+                     numIterations=10000,
                      addFit = TRUE,
                      dataOnly = FALSE,
                      degRes = 100,

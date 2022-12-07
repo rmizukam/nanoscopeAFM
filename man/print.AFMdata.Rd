@@ -19,7 +19,7 @@ prints essential information about the AFMdata object, which includes
 the description, channel, image size, history, and filename
 }
 \examples{
-d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+d = AFM.import(AFM.getSampleImages(type='ibw'))
 print(d)
 }
 \author{

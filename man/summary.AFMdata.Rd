@@ -18,7 +18,7 @@ summary of AFMdata object
 summary of AFMdata object
 }
 \examples{
-d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+d = AFM.import(AFM.getSampleImages(type='ibw'))
 summary(d)
 }
 \author{

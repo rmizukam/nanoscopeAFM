@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoscopeAFM</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.12</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.13</span>
       </span>
     </div>
 
@@ -32,7 +32,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/AFM-Setpoint.html">Setpoint</a>
+      <a href="../articles/AFM-advancedGraph.html">Advanced AFM Image Graphing</a>
     </li>
     <li>
       <a href="../articles/AFM-graphTypes.html">Plot Graph Types</a>
@@ -41,16 +41,19 @@
       <a href="../articles/AFM-imageSummary.html">AFM Image Summary</a>
     </li>
     <li>
+      <a href="../articles/AFM-setPoint.html">Setpoint</a>
+    </li>
+    <li>
+      <a href="../articles/ForceCurves.html">ForceCurves</a>
+    </li>
+    <li>
       <a href="../articles/FrequencySweep.html">FrequencySweep</a>
     </li>
     <li>
-      <a href="../articles/Height-Height-Correlation-Function.html">Height-Height-Correlation-Function</a>
+      <a href="../articles/HHCF.html">Height-Height-Correlation-Function</a>
     </li>
     <li>
       <a href="../articles/LineProfiles.html">Line Profiles</a>
-    </li>
-    <li>
-      <a href="../articles/advancedAFM-Graph.html">Advanced AFM Image Graphing</a>
     </li>
   </ul></li>
 <li>
@@ -115,7 +118,7 @@
 
 
 <dt>fillOption</dt>
-<dd><p>can be one of 8 color palettes, use "A" ... "H"</p></dd>
+<dd><p>can be one of 8 color palettes, use "A" ... "H", see <code>scale_fill_viridis</code></p></dd>
 
 
 <dt>addLines</dt>
@@ -159,17 +162,29 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d</span> <span class="op">=</span> <span class="fu"><a href="AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'ibw'</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d</span> <span class="op">=</span> <span class="fu"><a href="AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'ibw'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span>, graphType<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Graphing: HeightRetrace</span>
 <span class="r-plt img"><img src="plot.AFMdata-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span>, fillOption <span class="op">=</span> <span class="st">"magma"</span>, setRange<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">30</span>,<span class="fl">30</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Graphing: HeightRetrace</span>
 <span class="r-plt img"><img src="plot.AFMdata-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># size will changes the length scale size</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span>, graphType<span class="op">=</span><span class="fl">4</span>, col<span class="op">=</span><span class="st">'white'</span>, size<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Graphing: HeightRetrace</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Duplicated aesthetics after name standardisation: <span style="color: #00BB00;">size</span></span>
 <span class="r-plt img"><img src="plot.AFMdata-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># increase the size of the labels:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_bw</span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">16</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Graphing: HeightRetrace</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in theme_bw(base_size = 16):</span> could not find function "theme_bw"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># change the name of the z-scale</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">+</span> <span class="fu">labs</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"h(nm)"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Graphing: HeightRetrace</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in labs(fill = "h(nm)"):</span> could not find function "labs"</span>
 </code></pre></div>
     </div>
   </div>

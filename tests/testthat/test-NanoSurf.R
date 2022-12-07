@@ -1,7 +1,7 @@
 context("NanoSurf AFM image check")
 
 
-filename = AFM.getSampleImages(type='nid')[1]
+filename = AFM.getSampleImages(type='nid')
 
 test_that("check NanoSurf AFM image exists", {
   expect_true(file.exists(filename))

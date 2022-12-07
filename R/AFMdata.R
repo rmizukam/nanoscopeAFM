@@ -160,7 +160,7 @@ cpf <- function(...) cat(paste0(sprintf(...), "\n"))
 #' @author Thomas Gredig
 #' @importFrom ggplot2 ggplot aes
 #' @examples
-#' d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+#' d = AFM.import(AFM.getSampleImages(type='ibw'))
 #' summary(d)
 #' plot(d)
 #' @export
@@ -204,7 +204,7 @@ AFM.import <- function(filename, verbose=FALSE) {
 #' @return text with object information
 #' @author Thomas Gredig
 #' @examples
-#' d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+#' d = AFM.import(AFM.getSampleImages(type='ibw'))
 #' print(d)
 #' @export
 print.AFMdata <- function(x, ...) {
@@ -227,7 +227,7 @@ print.AFMdata <- function(x, ...) {
 #' @return summary of AFMdata object
 #' @author Thomas Gredig
 #' @examples
-#' d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+#' d = AFM.import(AFM.getSampleImages(type='ibw'))
 #' summary(d)
 #' @export
 summary.AFMdata <- function(object,...) {
@@ -280,7 +280,7 @@ summary.AFMdata <- function(object,...) {
 #' @return data.frame with ($x, $y, $z) raster image; ($x,$y) in units of nm, or ($freq, $z) for frequency sweep
 #' @author Thomas Gredig
 #' @examples
-#' afmd = AFM.import(AFM.getSampleImages(type='ibw')[1])
+#' afmd = AFM.import(AFM.getSampleImages(type='ibw'))
 #' d = AFM.raster(afmd, 1)
 #' head(d)
 #' @export
@@ -318,7 +318,7 @@ AFM.raster <- function(obj,no=1) {
 #' @param trimPeaks value from 0 to 1, where 0=trim 0\% and 1=trim 100\% of data points, generally a value less than 0.01 is useful to elevate the contrast of the image
 #' @param addLines if \code{TRUE} lines from obj are added to graph, lines can be added with \code{\link{AFM.lineProfile}} for example
 #' @param redBlue if \code{TRUE} output red / blue color scheme
-#' @param fillOption can be one of 8 color palettes, use "A" ... "H"
+#' @param fillOption can be one of 8 color palettes, use "A" ... "H", see \code{\link{scale_fill_viridis}}
 #' @param setRange vector with two values, such as c(-30,30) to make the scale from -30 to +30
 #' @param verbose if \code{TRUE} it outputs additional information.
 #' @param quiet if \code{TRUE} then no output at all
@@ -335,10 +335,18 @@ AFM.raster <- function(obj,no=1) {
 #' @seealso \code{\link{AFM.lineProfile}}
 #'
 #' @examples
-#' d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+#' d = AFM.import(AFM.getSampleImages(type='ibw'))
 #' plot(d, graphType=2)
 #' plot(d, fillOption = "magma", setRange=c(-30,30))
+#' 
+#' # size will changes the length scale size
 #' plot(d, graphType=4, col='white', size=10)
+#' 
+#' # increase the size of the labels:
+#' plot(d) + theme_bw(base_size=16)
+#' 
+#' # change the name of the z-scale
+#' plot(d) + labs(fill = "h(nm)")
 #' @export
 plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOption='viridis',
                          addLines=FALSE, redBlue = FALSE, verbose=FALSE, quiet=FALSE, setRange = c(0,0), ...) {
@@ -503,7 +511,7 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
 #' @return \code{TRUE} if object is an AFM image, \code{FALSE} for frequency image
 #' @author Thomas Gredig
 #' @examples
-#' d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+#' d = AFM.import(AFM.getSampleImages(type='ibw'))
 #' AFM.isImage(d)
 #' @export
 AFM.isImage <- function(obj) {
@@ -517,7 +525,7 @@ AFM.isImage <- function(obj) {
 #'
 #' @author Thomas Gredig
 #' @examples
-#' d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+#' d = AFM.import(AFM.getSampleImages(type='ibw'))
 #' AFM.dataType(d)
 #' @export
 AFM.dataType <- function(obj) {
@@ -538,7 +546,7 @@ AFM.dataType <- function(obj) {
 #' @return \code{TRUE} if filename is a supported AFM image
 #' @author Thomas Gredig
 #' @examples
-#' AFM.isFileValid(AFM.getSampleImages()[1])
+#' AFM.isFileValid(AFM.getSampleImages())
 #' @export
 AFM.isFileValid <- function(filename) {
   validFile = FALSE

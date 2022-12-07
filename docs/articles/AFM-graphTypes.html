@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoscopeAFM</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.12</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.13</span>
       </span>
     </div>
 
@@ -61,7 +61,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/AFM-Setpoint.html">Setpoint</a>
+      <a href="../articles/AFM-advancedGraph.html">Advanced AFM Image Graphing</a>
     </li>
     <li>
       <a href="../articles/AFM-graphTypes.html">Plot Graph Types</a>
@@ -70,16 +70,19 @@
       <a href="../articles/AFM-imageSummary.html">AFM Image Summary</a>
     </li>
     <li>
+      <a href="../articles/AFM-setPoint.html">Setpoint</a>
+    </li>
+    <li>
+      <a href="../articles/ForceCurves.html">ForceCurves</a>
+    </li>
+    <li>
       <a href="../articles/FrequencySweep.html">FrequencySweep</a>
     </li>
     <li>
-      <a href="../articles/Height-Height-Correlation-Function.html">Height-Height-Correlation-Function</a>
+      <a href="../articles/HHCF.html">Height-Height-Correlation-Function</a>
     </li>
     <li>
       <a href="../articles/LineProfiles.html">Line Profiles</a>
-    </li>
-    <li>
-      <a href="../articles/advancedAFM-Graph.html">Advanced AFM Image Graphing</a>
     </li>
   </ul>
 </li>
@@ -163,11 +166,11 @@ ggplot.</p>
 <span><span class="co">#&gt; 2 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
 <span><span class="co">#&gt; 3 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
 <span><span class="co">#&gt; 4 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
-<span><span class="co">#&gt;            channel history     z.min    z.max z.units</span></span>
-<span><span class="co">#&gt; 1    HeightRetrace         -32.45992 50.78832      nm</span></span>
-<span><span class="co">#&gt; 2 AmplitudeRetrace          29.00730 32.78488      nm</span></span>
-<span><span class="co">#&gt; 3     PhaseRetrace          63.92822 85.18923     deg</span></span>
-<span><span class="co">#&gt; 4   ZSensorRetrace         -29.44336 48.16414      nm</span></span></code></pre></div>
+<span><span class="co">#&gt;            channel history     z.min    z.max z.units dataType</span></span>
+<span><span class="co">#&gt; 1    HeightRetrace         -32.45992 50.78832      nm    image</span></span>
+<span><span class="co">#&gt; 2 AmplitudeRetrace          29.00730 32.78488      nm    image</span></span>
+<span><span class="co">#&gt; 3     PhaseRetrace          63.92822 85.18923     deg    image</span></span>
+<span><span class="co">#&gt; 4   ZSensorRetrace         -29.44336 48.16414      nm    image</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="graphtype-4">graphType 4<a class="anchor" aria-label="anchor" href="#graphtype-4"></a>
@@ -196,30 +199,27 @@ and the size of the font that displays the scale.</p>
 plots. Use <code>save_plot</code> to save the graph.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.stefanom.io/latex2exp/" class="external-link">latex2exp</a></span><span class="op">)</span></span>
 <span><span class="va">fname2</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'ibw'</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">afmd2</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="va">fname2</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">afmd2</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      objectect               description resolution           size</span></span>
-<span><span class="co">#&gt; 1 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
-<span><span class="co">#&gt; 2 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
-<span><span class="co">#&gt; 3 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
-<span><span class="co">#&gt; 4 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
-<span><span class="co">#&gt;            channel history     z.min    z.max z.units</span></span>
-<span><span class="co">#&gt; 1    HeightRetrace         -32.45992 50.78832      nm</span></span>
-<span><span class="co">#&gt; 2 AmplitudeRetrace          29.00730 32.78488      nm</span></span>
-<span><span class="co">#&gt; 3     PhaseRetrace          63.92822 85.18923     deg</span></span>
-<span><span class="co">#&gt; 4   ZSensorRetrace         -29.44336 48.16414      nm</span></span>
-<span><span class="va">g1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">afmd</span>, trimPeaks<span class="op">=</span><span class="fl">0.01</span>, graphType <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">afmd</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="va">fname2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">g1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">afmd</span>, trimPeaks<span class="op">=</span><span class="fl">0.01</span>, graphType <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>fill<span class="op">=</span><span class="st">'h (nm)'</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.key.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">'char'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Graphing: HeightRetrace</span></span>
-<span><span class="va">g2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">afmd2</span>, no<span class="op">=</span><span class="fl">2</span>, trimPeaks<span class="op">=</span><span class="fl">0.01</span>, graphType <span class="op">=</span> <span class="fl">1</span>, mpt<span class="op">=</span><span class="fl">29.6</span><span class="op">)</span></span>
+<span><span class="va">g2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">afmd</span>, no<span class="op">=</span><span class="fl">2</span>, trimPeaks<span class="op">=</span><span class="fl">0.01</span>, graphType <span class="op">=</span> <span class="fl">1</span>, mpt<span class="op">=</span><span class="fl">29.6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>fill<span class="op">=</span><span class="st">"A (nm)"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.key.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">'char'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Graphing: AmplitudeRetrace</span></span>
-<span><span class="va">g3</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">afmd</span>, no<span class="op">=</span><span class="fl">3</span>, trimPeaks<span class="op">=</span><span class="fl">0.01</span>, graphType <span class="op">=</span> <span class="fl">1</span>, mpt<span class="op">=</span><span class="fl">65.5</span><span class="op">)</span></span>
+<span><span class="va">g3</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">afmd</span>, no<span class="op">=</span><span class="fl">3</span>, trimPeaks<span class="op">=</span><span class="fl">0.01</span>, graphType <span class="op">=</span> <span class="fl">1</span>, mpt<span class="op">=</span><span class="fl">65.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>fill<span class="op">=</span><span class="fu"><a href="https://www.stefanom.io/latex2exp/reference/TeX.html" class="external-link">TeX</a></span><span class="op">(</span><span class="st">"$\\phi$ (deg)"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.key.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">'char'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Graphing: PhaseRetrace</span></span>
-<span><span class="va">g4</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">afmd</span>, no<span class="op">=</span><span class="fl">4</span>, trimPeaks<span class="op">=</span><span class="fl">0.01</span>, graphType <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">g4</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">afmd</span>, no<span class="op">=</span><span class="fl">4</span>, trimPeaks<span class="op">=</span><span class="fl">0.01</span>, graphType <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>fill<span class="op">=</span><span class="st">"z (nm)"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.key.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">'char'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Graphing: ZSensorRetrace</span></span>
 <span><span class="va">gAll</span> <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid</a></span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span>, <span class="va">g3</span>, <span class="va">g4</span>,</span>
-<span>          labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'a'</span>,<span class="st">'b'</span>,<span class="st">'c'</span>,<span class="st">'d'</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/ggdraw.html" class="external-link">ggdraw</a></span><span class="op">(</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/add_sub.html" class="external-link">add_sub</a></span><span class="op">(</span><span class="va">gAll</span>, <span class="st">"(a) height, (b) amplitude, (c) phase, (d) z sensor"</span>,x<span class="op">=</span><span class="fl">0.1</span>, hjust<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>          labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'a'</span>,<span class="st">'b'</span>,<span class="st">'c'</span>,<span class="st">'d'</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/ggdraw.html" class="external-link">ggdraw</a></span><span class="op">(</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/add_sub.html" class="external-link">add_sub</a></span><span class="op">(</span><span class="va">gAll</span>, </span>
+<span>               <span class="st">"Showing surface morphology of a phthalocyanine thin film\n with (a) height h, (b) amplitude A, (c) phase ϕ, and \n (d) z-sensor z response. Sample / image from Gredig\n Lab, CSU Long Beach."</span>,</span>
+<span>               x<span class="op">=</span><span class="fl">0.1</span>, hjust<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="AFM-graphTypes_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 </div>
 <div class="section level2">

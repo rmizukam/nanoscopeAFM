@@ -21,7 +21,7 @@ uses the AFM.raster() function, makes a copy of the object
 and fits a plane, returns the flattened object
 }
 \examples{
-d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+d = AFM.import(AFM.getSampleImages(type='ibw'))
 d2 = AFM.flatten(d)
 plot(d2,graphType=2)
 }

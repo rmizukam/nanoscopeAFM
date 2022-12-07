@@ -21,7 +21,7 @@ four AFM formats (TIFF, NID, IBW, and 000) are supported. Use
 use \code{plot()} to generate an image.
 }
 \examples{
-d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+d = AFM.import(AFM.getSampleImages(type='ibw'))
 summary(d)
 plot(d)
 }

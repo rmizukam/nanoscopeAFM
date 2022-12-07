@@ -1,6 +1,6 @@
 context("Veeco AFM image check")
 
-filename = AFM.getSampleImages(type='003')
+filename = AFM.getSampleImages(type='veeco')
 
 test_that("check Veeco AFM image exists", {
   expect_true(file.exists(filename))

@@ -30,7 +30,7 @@
 
 \item{trimPeaks}{value from 0 to 1, where 0=trim 0\% and 1=trim 100\% of data points, generally a value less than 0.01 is useful to elevate the contrast of the image}
 
-\item{fillOption}{can be one of 8 color palettes, use "A" ... "H"}
+\item{fillOption}{can be one of 8 color palettes, use "A" ... "H", see \code{\link{scale_fill_viridis}}}
 
 \item{addLines}{if \code{TRUE} lines from obj are added to graph, lines can be added with \code{\link{AFM.lineProfile}} for example}
 
@@ -51,10 +51,18 @@ ggplot graph
 By default, trims 1 percent of the outliers in height data
 }
 \examples{
-d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+d = AFM.import(AFM.getSampleImages(type='ibw'))
 plot(d, graphType=2)
 plot(d, fillOption = "magma", setRange=c(-30,30))
+
+# size will changes the length scale size
 plot(d, graphType=4, col='white', size=10)
+
+# increase the size of the labels:
+plot(d) + theme_bw(base_size=16)
+
+# change the name of the z-scale
+plot(d) + labs(fill = "h(nm)")
 }
 \seealso{
 \code{\link{AFM.lineProfile}}

@@ -2,19 +2,21 @@
 % Please edit documentation in R/AFM.getSampleImages.R
 \name{AFM.getSampleImages}
 \alias{AFM.getSampleImages}
-\title{Sample AFM images}
+\title{Sample AFM image file names}
 \usage{
 AFM.getSampleImages(type = "*")
 }
 \arguments{
-\item{type}{could be "ibw" for Asylum Research, "nid" for NanoSurf, "tiff" for Park,
+\item{type}{could be "ibw" for Asylum Research, "nid" for NanoSurf, 
+"veeco" for Bruker/Veeco image,
+"tiff" for Park, "force" for force spectroscopy, "resonance" for resonance curve,
 if empty or "*", all files will be returned}
 }
 \value{
 vector with path/filename to AFM sample images
 }
 \description{
-returns sample AFM images included in this library
+returns sample AFM image files included with this library
 }
 \examples{
 file.list = AFM.getSampleImages()

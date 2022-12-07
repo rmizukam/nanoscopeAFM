@@ -1,6 +1,6 @@
 context("Frequency Sweep")
 
-filesAFM = AFM.getSampleImages(type='nid')
+filesAFM = AFM.getSampleImages()
 freqAFM = filesAFM[sapply(filesAFM, function(x) { (AFM.dataType(AFM.import(x)) == 'frequency') })]
 
 test_that("Check for 1 Frequency Sweep file", {

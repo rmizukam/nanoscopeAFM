@@ -17,7 +17,7 @@ Checks that filename is an AFM data file either Asylum Research
 Igor Wavefile, Nanoscope Veeco file, Park AFM file, or Nanosurf file
 }
 \examples{
-AFM.isFileValid(AFM.getSampleImages()[1])
+AFM.isFileValid(AFM.getSampleImages())
 }
 \author{
 Thomas Gredig

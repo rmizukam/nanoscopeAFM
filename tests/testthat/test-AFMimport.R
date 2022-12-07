@@ -131,7 +131,8 @@ test_that("NanoSurf image size check", {
 
 test_that("verify all sample images", {
   file.list = AFM.getSampleImages()
-  expect_equal(length(file.list), 5)
+  expect_equal(length(file.list), 6)
+  
   x.pixels=c()
   for(filename in file.list) {
     d = AFM.import(filename)

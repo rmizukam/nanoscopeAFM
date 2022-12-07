@@ -7,6 +7,9 @@
     <loc>https://thomasgredig.github.io/nanoscopeAFM/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://thomasgredig.github.io/nanoscopeAFM/articles/AFM-advancedGraph.html</loc>
+  </url>
+  <url>
     <loc>https://thomasgredig.github.io/nanoscopeAFM/articles/AFM-graphTypes.html</loc>
   </url>
   <url>
@@ -16,7 +19,13 @@
     <loc>https://thomasgredig.github.io/nanoscopeAFM/articles/AFM-imageSummary.html</loc>
   </url>
   <url>
+    <loc>https://thomasgredig.github.io/nanoscopeAFM/articles/ForceCurves.html</loc>
+  </url>
+  <url>
     <loc>https://thomasgredig.github.io/nanoscopeAFM/articles/FrequencySweep.html</loc>
+  </url>
+  <url>
+    <loc>https://thomasgredig.github.io/nanoscopeAFM/articles/HHCF.html</loc>
   </url>
   <url>
     <loc>https://thomasgredig.github.io/nanoscopeAFM/articles/Height-Height-Correlation-Function.html</loc>
@@ -92,6 +101,9 @@
   </url>
   <url>
     <loc>https://thomasgredig.github.io/nanoscopeAFM/reference/AFM.selectChannel.html</loc>
+  </url>
+  <url>
+    <loc>https://thomasgredig.github.io/nanoscopeAFM/reference/AFM.specData.html</loc>
   </url>
   <url>
     <loc>https://thomasgredig.github.io/nanoscopeAFM/reference/AFM.specHeader.html</loc>

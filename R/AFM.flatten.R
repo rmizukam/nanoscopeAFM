@@ -10,7 +10,7 @@
 #' @author thomasgredig
 #' @importFrom purrr is_empty
 #' @examples
-#' d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+#' d = AFM.import(AFM.getSampleImages(type='ibw'))
 #' d2 = AFM.flatten(d)
 #' plot(d2,graphType=2)
 #' @export

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoscopeAFM</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.12</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.13</span>
       </span>
     </div>
 
@@ -32,7 +32,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/AFM-Setpoint.html">Setpoint</a>
+      <a href="../articles/AFM-advancedGraph.html">Advanced AFM Image Graphing</a>
     </li>
     <li>
       <a href="../articles/AFM-graphTypes.html">Plot Graph Types</a>
@@ -41,16 +41,19 @@
       <a href="../articles/AFM-imageSummary.html">AFM Image Summary</a>
     </li>
     <li>
+      <a href="../articles/AFM-setPoint.html">Setpoint</a>
+    </li>
+    <li>
+      <a href="../articles/ForceCurves.html">ForceCurves</a>
+    </li>
+    <li>
       <a href="../articles/FrequencySweep.html">FrequencySweep</a>
     </li>
     <li>
-      <a href="../articles/Height-Height-Correlation-Function.html">Height-Height-Correlation-Function</a>
+      <a href="../articles/HHCF.html">Height-Height-Correlation-Function</a>
     </li>
     <li>
       <a href="../articles/LineProfiles.html">Line Profiles</a>
-    </li>
-    <li>
-      <a href="../articles/advancedAFM-Graph.html">Advanced AFM Image Graphing</a>
     </li>
   </ul></li>
 <li>
@@ -114,7 +117,7 @@ data is returned</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d</span> <span class="op">=</span> <span class="fu"><a href="AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'ibw'</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d</span> <span class="op">=</span> <span class="fu"><a href="AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'ibw'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">AFM.histogram</span><span class="op">(</span><span class="va">d</span>, dataOnly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,n<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      mids     zDensity</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  -32.25 6.103516e-05</span>

@@ -86,16 +86,23 @@ Use the package `cowplot` to create a graph with two plots. Use `save_plot` to s
 
 ```{r}
 library(cowplot)
+library(latex2exp)
 fname2 = AFM.getSampleImages(type='ibw')[1]
-afmd2 = AFM.import(fname2)
-summary(afmd2)
-g1 = plot(afmd, trimPeaks=0.01, graphType = 1)
-g2 = plot(afmd2, no=2, trimPeaks=0.01, graphType = 1, mpt=29.6)
-g3 = plot(afmd, no=3, trimPeaks=0.01, graphType = 1, mpt=65.5)
-g4 = plot(afmd, no=4, trimPeaks=0.01, graphType = 1)
+afmd = AFM.import(fname2)
+
+g1 = plot(afmd, trimPeaks=0.01, graphType = 1) + 
+  labs(fill='h (nm)') + theme(legend.key.size = unit(1, 'char'))
+g2 = plot(afmd, no=2, trimPeaks=0.01, graphType = 1, mpt=29.6) +
+  labs(fill="A (nm)") + theme(legend.key.size = unit(1, 'char'))
+g3 = plot(afmd, no=3, trimPeaks=0.01, graphType = 1, mpt=65.5) +
+  labs(fill=TeX("$\\phi$ (deg)")) + theme(legend.key.size = unit(1, 'char'))
+g4 = plot(afmd, no=4, trimPeaks=0.01, graphType = 1) + 
+  labs(fill="z (nm)") + theme(legend.key.size = unit(1, 'char'))
 gAll = plot_grid(g1, g2, g3, g4,
-          labels=c('a','b','c','d'))
-ggdraw(add_sub(gAll, "(a) height, (b) amplitude, (c) phase, (d) z sensor",x=0.1, hjust=0))
+          labels=c('a','b','c','d')) 
+ggdraw(add_sub(gAll, 
+               "Showing surface morphology of a phthalocyanine thin film\n with (a) height h, (b) amplitude A, (c) phase ϕ, and \n (d) z-sensor z response. Sample / image from Gredig\n Lab, CSU Long Beach.",
+               x=0.1, hjust=0))
 ```
 
 

@@ -16,7 +16,7 @@ AFMinfo class object
 header information about the AFM image, includes scan rate, widths, etc.
 }
 \examples{
-filename = AFM.getSampleImages(type='003')
+filename = AFM.getSampleImages(type='veeco')
 h = AFMinfo(filename)
 summary(h)
 }

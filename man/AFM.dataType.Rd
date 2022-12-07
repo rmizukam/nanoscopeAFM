@@ -16,7 +16,7 @@ string with AFM type, "image", "force", "frequency", "spectroscopy"
 returns type of AFM image
 }
 \examples{
-d = AFM.import(AFM.getSampleImages(type='ibw')[1])
+d = AFM.import(AFM.getSampleImages(type='ibw'))
 AFM.dataType(d)
 }
 \author{

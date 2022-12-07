@@ -18,7 +18,7 @@ quick summary
 summary for AFMinfo object
 }
 \examples{
-h1 = AFMinfo(AFM.getSampleImages(type='ibw')[1])
+h1 = AFMinfo(AFM.getSampleImages(type='ibw'))
 summary(h1)
 }
 \author{

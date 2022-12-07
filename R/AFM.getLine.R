@@ -16,11 +16,11 @@
 #' @seealso \code{\link{AFM.lineProfile}}
 #'
 #' @examples
-# filename = AFM.getSampleImages()[1]
-# afmd = AFM.import(filename)
-# afmd2 = AFM.getLine(afmd, 50)
-# plot(afmd2, addLines = TRUE)
-# head(AFM.linePlot(afmd2, dataOnly = TRUE))
+#' filename = AFM.getSampleImages()
+#' afmd = AFM.import(filename)
+#' afmd2 = AFM.getLine(afmd, 50)
+#' plot(afmd2, addLines = TRUE)
+#' head(AFM.linePlot(afmd2, dataOnly = TRUE))
 #'
 #'
 #' @export

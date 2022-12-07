@@ -19,7 +19,7 @@ Find all the frequency sweep files:
 
 ```{r setup}
 library(nanoscopeAFM)
-filesAFM = AFM.getSampleImages(type='nid')
+filesAFM = AFM.getSampleImages()
 freqAFM = filesAFM[sapply(filesAFM, function(x) { (AFM.dataType(AFM.import(x)) == 'frequency') })]
 ```
 

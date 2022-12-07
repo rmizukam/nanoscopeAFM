@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoscopeAFM</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.10</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">2.0.13</span>
       </span>
     </div>
 
@@ -61,7 +61,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/AFM-Setpoint.html">Setpoint</a>
+      <a href="../articles/AFM-advancedGraph.html">Advanced AFM Image Graphing</a>
     </li>
     <li>
       <a href="../articles/AFM-graphTypes.html">Plot Graph Types</a>
@@ -70,16 +70,19 @@
       <a href="../articles/AFM-imageSummary.html">AFM Image Summary</a>
     </li>
     <li>
+      <a href="../articles/AFM-setPoint.html">Setpoint</a>
+    </li>
+    <li>
+      <a href="../articles/ForceCurves.html">ForceCurves</a>
+    </li>
+    <li>
       <a href="../articles/FrequencySweep.html">FrequencySweep</a>
     </li>
     <li>
-      <a href="../articles/Height-Height-Correlation-Function.html">Height-Height-Correlation-Function</a>
+      <a href="../articles/HHCF.html">Height-Height-Correlation-Function</a>
     </li>
     <li>
       <a href="../articles/LineProfiles.html">Line Profiles</a>
-    </li>
-    <li>
-      <a href="../articles/advancedAFM-Graph.html">Advanced AFM Image Graphing</a>
     </li>
   </ul>
 </li>
@@ -117,6 +120,7 @@
 systems. Here are a few examples.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thomasgredig.github.io/nanoscopeAFM/">nanoscopeAFM</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Please cite nanoscopeAFM ,see https://doi.org/10.5281/zenodo.5770772</span></span>
 <span><span class="va">file.list</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">filename</span> <span class="kw">in</span> <span class="va">file.list</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span><span class="op">)</span></span>
@@ -128,37 +132,44 @@ systems. Here are a few examples.</p>
 <span><span class="co">#&gt; 2 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
 <span><span class="co">#&gt; 3 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
 <span><span class="co">#&gt; 4 Cypher image KC200, FePc, KC20170720Si  128 x 128 4000 x 4000 nm</span></span>
-<span><span class="co">#&gt;            channel history     z.min    z.max z.units</span></span>
-<span><span class="co">#&gt; 1    HeightRetrace         -32.45992 50.78832      nm</span></span>
-<span><span class="co">#&gt; 2 AmplitudeRetrace          29.00730 32.78488      nm</span></span>
-<span><span class="co">#&gt; 3     PhaseRetrace          63.92822 85.18923     deg</span></span>
-<span><span class="co">#&gt; 4   ZSensorRetrace         -29.44336 48.16414      nm</span></span>
+<span><span class="co">#&gt;            channel history     z.min    z.max z.units dataType</span></span>
+<span><span class="co">#&gt; 1    HeightRetrace         -32.45992 50.78832      nm    image</span></span>
+<span><span class="co">#&gt; 2 AmplitudeRetrace          29.00730 32.78488      nm    image</span></span>
+<span><span class="co">#&gt; 3     PhaseRetrace          63.92822 85.18923     deg    image</span></span>
+<span><span class="co">#&gt; 4   ZSensorRetrace         -29.44336 48.16414      nm    image</span></span>
+<span><span class="co">#&gt; [1] "ForceCurve_009.tiff"</span></span>
+<span><span class="co">#&gt;           objectect description resolution           size    channel history</span></span>
+<span><span class="co">#&gt; 1 Park spectroscopy         NCM  256 x 256 3250 x 3250 nm Topography        </span></span>
+<span><span class="co">#&gt;     z.min   z.max z.units     dataType</span></span>
+<span><span class="co">#&gt; 1 -102.04 63.5769      um spectroscopy</span></span>
 <span><span class="co">#&gt; [1] "NanoSurf_20160301.nid"</span></span>
 <span><span class="co">#&gt;        objectect         description resolution             size</span></span>
 <span><span class="co">#&gt; 1 NanoSurf image 01-03-2016 18:36:58  128 x 128 10000 x 10000 nm</span></span>
 <span><span class="co">#&gt; 2 NanoSurf image 01-03-2016 18:36:58  128 x 128 10000 x 10000 nm</span></span>
 <span><span class="co">#&gt; 3 NanoSurf image 01-03-2016 18:36:58  128 x 128 10000 x 10000 nm</span></span>
 <span><span class="co">#&gt; 4 NanoSurf image 01-03-2016 18:36:58  128 x 128 10000 x 10000 nm</span></span>
-<span><span class="co">#&gt;                   channel history         z.min         z.max z.units</span></span>
-<span><span class="co">#&gt; 1     Z-Axis Scan forward         -2.941895e-07 -8.850098e-08       m</span></span>
-<span><span class="co">#&gt; 2  Amplitude Scan forward          2.853394e-02  7.675171e-02       V</span></span>
-<span><span class="co">#&gt; 3    Z-Axis Scan backward         -3.012085e-07 -9.124756e-08       m</span></span>
-<span><span class="co">#&gt; 4 Amplitude Scan backward          2.899170e-02  7.286072e-02       V</span></span>
+<span><span class="co">#&gt;                   channel history         z.min         z.max z.units dataType</span></span>
+<span><span class="co">#&gt; 1     Z-Axis Scan forward         -2.941895e-07 -8.850098e-08       m    image</span></span>
+<span><span class="co">#&gt; 2  Amplitude Scan forward          2.853394e-02  7.675171e-02       V    image</span></span>
+<span><span class="co">#&gt; 3    Z-Axis Scan backward         -3.012085e-07 -9.124756e-08       m    image</span></span>
+<span><span class="co">#&gt; 4 Amplitude Scan backward          2.899170e-02  7.286072e-02       V    image</span></span>
 <span><span class="co">#&gt; [1] "NanoSurf_resonancePeak.nid"</span></span>
 <span><span class="co">#&gt;            objectect                                               description</span></span>
 <span><span class="co">#&gt; 1 NanoSurf frequency Aspire CT170R-25; 179.405kHz; 284mV; 15-02-2012; 21:23:59</span></span>
 <span><span class="co">#&gt;   resolution            size         channel history z.min  z.max z.units</span></span>
 <span><span class="co">#&gt; 1        301 177935 - 180935 Frequency sweep           148 179405      Hz</span></span>
+<span><span class="co">#&gt;    dataType</span></span>
+<span><span class="co">#&gt; 1 frequency</span></span>
 <span><span class="co">#&gt; [1] "Park_20210916_034.tiff"</span></span>
 <span><span class="co">#&gt;    objectect description resolution           size    channel history     z.min</span></span>
 <span><span class="co">#&gt; 1 Park image         NCM  256 x 256 2500 x 2500 nm Topography         -2.713213</span></span>
-<span><span class="co">#&gt;      z.max z.units</span></span>
-<span><span class="co">#&gt; 1 9.244095      nm</span></span>
+<span><span class="co">#&gt;      z.max z.units dataType</span></span>
+<span><span class="co">#&gt; 1 9.244095      um    image</span></span>
 <span><span class="co">#&gt; [1] "Veeco_20160622.003"</span></span>
 <span><span class="co">#&gt;     objectect description resolution           size channel history     z.min</span></span>
 <span><span class="co">#&gt; 1 Veeco image              512 x 512 1769 x 1769 nm  Height         -145.6084</span></span>
-<span><span class="co">#&gt;      z.max z.units</span></span>
-<span><span class="co">#&gt; 1 13.86895       m</span></span></code></pre></div>
+<span><span class="co">#&gt;      z.max z.units dataType</span></span>
+<span><span class="co">#&gt; 1 13.86895       m    image</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="afminfo-class">AFMinfo class<a class="anchor" aria-label="anchor" href="#afminfo-class"></a>
@@ -886,7 +897,7 @@ object:</p>
 <span><span class="co">#&gt; [1] "Cypher"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $filename</span></span>
-<span><span class="co">#&gt; [1] "/private/var/folders/n7/c8bjcf7n25g74wqr3_7cgpvh0000gt/T/RtmpRRfv2i/temp_libpath115172c88ed2f/nanoscopeAFM/extdata/AR_20211011.ibw"</span></span>
+<span><span class="co">#&gt; [1] "/private/var/folders/bb/zm_z32n92831n4t56cr3tcdw0000gp/T/RtmpKCjcos/temp_libpath30ba960b2b5/nanoscopeAFM/extdata/AR_20211011.ibw"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $widthPixel</span></span>
 <span><span class="co">#&gt; [1] 128</span></span>
@@ -911,6 +922,103 @@ object:</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $note</span></span>
 <span><span class="co">#&gt; [1] "KC200, FePc, KC20170720Si,KC20170720Si_KC20"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "AFMinfo"</span></span>
+<span><span class="co">#&gt; [1] "ForceCurve_009.tiff"</span></span>
+<span><span class="co">#&gt; $data</span></span>
+<span><span class="co">#&gt;                         name                            value</span></span>
+<span><span class="co">#&gt; 1                  imageType                                2</span></span>
+<span><span class="co">#&gt; 2                 sourceName                       Topography</span></span>
+<span><span class="co">#&gt; 3                  imageMode                              NCM</span></span>
+<span><span class="co">#&gt; 4              dfLPFStrength                                0</span></span>
+<span><span class="co">#&gt; 5               bAutoFlatten                                0</span></span>
+<span><span class="co">#&gt; 6                   bACTrack                                0</span></span>
+<span><span class="co">#&gt; 7                     nWidth                              256</span></span>
+<span><span class="co">#&gt; 8                    nHeight                              256</span></span>
+<span><span class="co">#&gt; 9                    dfAngle                                0</span></span>
+<span><span class="co">#&gt; 10                 bSineScan                                0</span></span>
+<span><span class="co">#&gt; 11                dfOverScan               0.0999999999994543</span></span>
+<span><span class="co">#&gt; 12              bFastScanDir                                1</span></span>
+<span><span class="co">#&gt; 13              nSlowScanDir                                0</span></span>
+<span><span class="co">#&gt; 14                   bXYSwap                                0</span></span>
+<span><span class="co">#&gt; 15             dfXScanSizeum                             3.25</span></span>
+<span><span class="co">#&gt; 16             dfYScanSizeum                             3.25</span></span>
+<span><span class="co">#&gt; 17               dfXOffsetum                            1.625</span></span>
+<span><span class="co">#&gt; 18               dfYOffsetum                            1.125</span></span>
+<span><span class="co">#&gt; 19              dfScanRateHz                0.796339959088073</span></span>
+<span><span class="co">#&gt; 20                dfSetPoint                 10.0028170496225</span></span>
+<span><span class="co">#&gt; 21             SetPointUnitW                               um</span></span>
+<span><span class="co">#&gt; 22                dfTipBiasV                                0</span></span>
+<span><span class="co">#&gt; 23             dfSampleBiasV                                0</span></span>
+<span><span class="co">#&gt; 24                dfDataGain                -4.50936968921451</span></span>
+<span><span class="co">#&gt; 25                  dfZScale                                1</span></span>
+<span><span class="co">#&gt; 26                 dfZOffset                                0</span></span>
+<span><span class="co">#&gt; 27                     UnitZ                               um</span></span>
+<span><span class="co">#&gt; 28                  nDataMin                                0</span></span>
+<span><span class="co">#&gt; 29                  nDataMax                                1</span></span>
+<span><span class="co">#&gt; 30                  nDataAvg                                0</span></span>
+<span><span class="co">#&gt; 31              nCompression                                0</span></span>
+<span><span class="co">#&gt; 32                 bLogScale                                0</span></span>
+<span><span class="co">#&gt; 33                   bSquare                                0</span></span>
+<span><span class="co">#&gt; 34              dfZServoGain                                1</span></span>
+<span><span class="co">#&gt; 35           dfZScannerRange                                1</span></span>
+<span><span class="co">#&gt; 36             XYVoltageMode                             High</span></span>
+<span><span class="co">#&gt; 37              ZVoltageMode                             High</span></span>
+<span><span class="co">#&gt; 38               XYServoMode                               on</span></span>
+<span><span class="co">#&gt; 39                 nDataType                                2</span></span>
+<span><span class="co">#&gt; 40               bXPDDRegion                                0</span></span>
+<span><span class="co">#&gt; 41               bYPDDRegion                                0</span></span>
+<span><span class="co">#&gt; 42            dfNCMAmplitude                 15.0947532852879</span></span>
+<span><span class="co">#&gt; 43            dfNCMFrequency                  285054.83259964</span></span>
+<span><span class="co">#&gt; 44       dfHeadRotationAngle                                0</span></span>
+<span><span class="co">#&gt; 45                Cantilever                             NCHR</span></span>
+<span><span class="co">#&gt; 46         dfNCMDrivePercent                                0</span></span>
+<span><span class="co">#&gt; 47         dfIntensityFactor                                0</span></span>
+<span><span class="co">#&gt; 48                ImageWidth                              256</span></span>
+<span><span class="co">#&gt; 49               ImageLength                              256</span></span>
+<span><span class="co">#&gt; 50             BitsPerSample                                8</span></span>
+<span><span class="co">#&gt; 51               Compression                                1</span></span>
+<span><span class="co">#&gt; 52 PhotometricInterpretation                                3</span></span>
+<span><span class="co">#&gt; 53              StripOffsets                              230</span></span>
+<span><span class="co">#&gt; 54           SamplesPerPixel                                1</span></span>
+<span><span class="co">#&gt; 55              RowsPerStrip                                8</span></span>
+<span><span class="co">#&gt; 56           StripByteCounts 2048,2048,2048,2048,2048,2048,20</span></span>
+<span><span class="co">#&gt; 57                  Software           Park Systems SmartScan</span></span>
+<span><span class="co">#&gt; 58                  DateTime              2022:11:30 15:26:47</span></span>
+<span><span class="co">#&gt; 59                  ColorMap 128,128,128,128,4,4,6,6,8,8,10,1</span></span>
+<span><span class="co">#&gt; 60           ParkMagicNumber                        235082497</span></span>
+<span><span class="co">#&gt; 61               ParkVersion                         16777218</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $type</span></span>
+<span><span class="co">#&gt; [1] "Park"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $filename</span></span>
+<span><span class="co">#&gt; [1] "/private/var/folders/bb/zm_z32n92831n4t56cr3tcdw0000gp/T/RtmpKCjcos/temp_libpath30ba960b2b5/nanoscopeAFM/extdata/ForceCurve_009.tiff"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $widthPixel</span></span>
+<span><span class="co">#&gt; [1] 256</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $heightPixel</span></span>
+<span><span class="co">#&gt; [1] 256</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $scanRate.Hz</span></span>
+<span><span class="co">#&gt; [1] 0.79634</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $imagingMode</span></span>
+<span><span class="co">#&gt; [1] "NCM"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $cantilever</span></span>
+<span><span class="co">#&gt; [1] "NCHR"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $resFrequency</span></span>
+<span><span class="co">#&gt; [1] 285054.8</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $noChannels</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $note</span></span>
+<span><span class="co">#&gt; [1] "Topography"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; attr(,"class")</span></span>
 <span><span class="co">#&gt; [1] "AFMinfo"</span></span>
@@ -1494,7 +1602,7 @@ object:</p>
 <span><span class="co">#&gt; [1] "NanoSurf"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $filename</span></span>
-<span><span class="co">#&gt; [1] "/private/var/folders/n7/c8bjcf7n25g74wqr3_7cgpvh0000gt/T/RtmpRRfv2i/temp_libpath115172c88ed2f/nanoscopeAFM/extdata/NanoSurf_20160301.nid"</span></span>
+<span><span class="co">#&gt; [1] "/private/var/folders/bb/zm_z32n92831n4t56cr3tcdw0000gp/T/RtmpKCjcos/temp_libpath30ba960b2b5/nanoscopeAFM/extdata/NanoSurf_20160301.nid"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $widthPixel</span></span>
 <span><span class="co">#&gt; [1] 128</span></span>
@@ -1516,106 +1624,6 @@ object:</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $noChannels</span></span>
 <span><span class="co">#&gt; [1] 4</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $note</span></span>
-<span><span class="co">#&gt; [1] ""</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; attr(,"class")</span></span>
-<span><span class="co">#&gt; [1] "AFMinfo"</span></span>
-<span><span class="co">#&gt; [1] "NanoSurf_resonancePeak.nid"</span></span>
-<span><span class="co">#&gt; $data</span></span>
-<span><span class="co">#&gt;                    name            value</span></span>
-<span><span class="co">#&gt; 1               Version                2</span></span>
-<span><span class="co">#&gt; 2            GroupCount                1</span></span>
-<span><span class="co">#&gt; 3              Gr0-Name  Frequency sweep</span></span>
-<span><span class="co">#&gt; 4                Gr0-ID              256</span></span>
-<span><span class="co">#&gt; 5             Gr0-Count                3</span></span>
-<span><span class="co">#&gt; 6               Gr0-Ch2      DataSet-0:2</span></span>
-<span><span class="co">#&gt; 7              SetInfos     DataSet-Info</span></span>
-<span><span class="co">#&gt; 8        -- Bodeplot --         --------</span></span>
-<span><span class="co">#&gt; 9            Freq. peak       179.405kHz</span></span>
-<span><span class="co">#&gt; 10     Excitation ampl.            284mV</span></span>
-<span><span class="co">#&gt; 11                 Date       15-02-2012</span></span>
-<span><span class="co">#&gt; 12                 Time         21:23:59</span></span>
-<span><span class="co">#&gt; 13         -- Global --         --------</span></span>
-<span><span class="co">#&gt; 14             Op. mode    Dynamic Force</span></span>
-<span><span class="co">#&gt; 15      Cantilever type Aspire CT170R-25</span></span>
-<span><span class="co">#&gt; 16            Head type          EZ2-AFM</span></span>
-<span><span class="co">#&gt; 17            Scan head    10-08-387.hed</span></span>
-<span><span class="co">#&gt; 18        Software ver.          1-8-0-2</span></span>
-<span><span class="co">#&gt; 19        Firmware ver.          2-3-0-2</span></span>
-<span><span class="co">#&gt; 20       Controller S/N       023-08-554</span></span>
-<span><span class="co">#&gt; 21         -- Module --         --------</span></span>
-<span><span class="co">#&gt; 22     Controller Board                2</span></span>
-<span><span class="co">#&gt; 23     AFM Basic Module                3</span></span>
-<span><span class="co">#&gt; 24   AFM Dynamic Module                2</span></span>
-<span><span class="co">#&gt; 25 AFM Extension Module                0</span></span>
-<span><span class="co">#&gt; 26         Video Module                0</span></span>
-<span><span class="co">#&gt; 27      Signal Module S                0</span></span>
-<span><span class="co">#&gt; 28      Signal Module A                0</span></span>
-<span><span class="co">#&gt; 29           USB Module                3</span></span>
-<span><span class="co">#&gt; 30      Nanosurf Report                0</span></span>
-<span><span class="co">#&gt; 31  Scripting Interface                0</span></span>
-<span><span class="co">#&gt; 32              Version                2</span></span>
-<span><span class="co">#&gt; 33               Points              301</span></span>
-<span><span class="co">#&gt; 34                Lines                1</span></span>
-<span><span class="co">#&gt; 35                Frame  Frequency sweep</span></span>
-<span><span class="co">#&gt; 36              CurLine                0</span></span>
-<span><span class="co">#&gt; 37             Dim0Name        Frequency</span></span>
-<span><span class="co">#&gt; 38             Dim0Unit               Hz</span></span>
-<span><span class="co">#&gt; 39            Dim0Range             3000</span></span>
-<span><span class="co">#&gt; 40              Dim0Min           177935</span></span>
-<span><span class="co">#&gt; 41            Dim1Range                1</span></span>
-<span><span class="co">#&gt; 42              Dim1Min                0</span></span>
-<span><span class="co">#&gt; 43             Dim2Name        Amplitude</span></span>
-<span><span class="co">#&gt; 44             Dim2Unit                V</span></span>
-<span><span class="co">#&gt; 45            Dim2Range               20</span></span>
-<span><span class="co">#&gt; 46              Dim2Min              -10</span></span>
-<span><span class="co">#&gt; 47             SaveMode           Binary</span></span>
-<span><span class="co">#&gt; 48             SaveBits               16</span></span>
-<span><span class="co">#&gt; 49             SaveSign           Signed</span></span>
-<span><span class="co">#&gt; 50            SaveOrder            Intel</span></span>
-<span><span class="co">#&gt; 51            ViewWidth              333</span></span>
-<span><span class="co">#&gt; 52           ViewHeight              217</span></span>
-<span><span class="co">#&gt; 53            ViewCount                1</span></span>
-<span><span class="co">#&gt; 54                View0    SetView-View0</span></span>
-<span><span class="co">#&gt; 55              ViewTyp                0</span></span>
-<span><span class="co">#&gt; 56               LineOp                0</span></span>
-<span><span class="co">#&gt; 57              Channel                2</span></span>
-<span><span class="co">#&gt; 58                Frame                0</span></span>
-<span><span class="co">#&gt; 59               ZRange           -1,656</span></span>
-<span><span class="co">#&gt; 60             ViewSize              256</span></span>
-<span><span class="co">#&gt; 61             ViewMode                0</span></span>
-<span><span class="co">#&gt; 62            GraphMode                1</span></span>
-<span><span class="co">#&gt; 63           AutoZRange                1</span></span>
-<span><span class="co">#&gt; 64             ParCount                0</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $type</span></span>
-<span><span class="co">#&gt; [1] "NanoSurf"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $filename</span></span>
-<span><span class="co">#&gt; [1] "/private/var/folders/n7/c8bjcf7n25g74wqr3_7cgpvh0000gt/T/RtmpRRfv2i/temp_libpath115172c88ed2f/nanoscopeAFM/extdata/NanoSurf_resonancePeak.nid"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $widthPixel</span></span>
-<span><span class="co">#&gt; [1] 301</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $heightPixel</span></span>
-<span><span class="co">#&gt; [1] 1</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $scanRate.Hz</span></span>
-<span><span class="co">#&gt; [1] NA</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $imagingMode</span></span>
-<span><span class="co">#&gt; [1] "Dynamic Force"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $cantilever</span></span>
-<span><span class="co">#&gt; [1] "Aspire CT170R-25"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $resFrequency</span></span>
-<span><span class="co">#&gt; [1] NA</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $noChannels</span></span>
-<span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $note</span></span>
 <span><span class="co">#&gt; [1] ""</span></span>

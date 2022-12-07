@@ -22,7 +22,7 @@ always in units of nanometer
 for frequency data sweep, it will return ($freq, $z) instead
 }
 \examples{
-afmd = AFM.import(AFM.getSampleImages(type='ibw')[1])
+afmd = AFM.import(AFM.getSampleImages(type='ibw'))
 d = AFM.raster(afmd, 1)
 head(d)
 }

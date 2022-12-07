@@ -2,13 +2,14 @@
 
 # nanoscopeAFM  <img src="man/figures/logo.png" align="right" alt="" width="250" />
 
-Imports and analyzes Atomic Force Microsocpy images; currently four types are supported, images from Nanosurf (.nid), Veeco Multimode Nanoscope III (.000), Park AFM images (.tiff), and Asylum Research AFM Igor images (.ibw).
+Imports and analyzes Atomic Force Microsocpy images; currently four types are supported, images from Nanosurf (.nid), Bruker / Veeco Multimode Nanoscope III (.000), Park AFM images (.tiff), and Asylum Research AFM Igor images (.ibw).
 
 This package provides three main advantages:
 
 - Using this data class, a series of images can be analyzed uniformly and quickly within R;
 - Access to each data point allows us to integrate mathematical models directly to the original data; 
 - Part of reproducible data science that processes raw data directly into publishable figures.
+
 
 ## Installation
 
@@ -27,9 +28,10 @@ Several new data structures (S3 and S4) are introduced:
 - `AFMinfo` - S3 class that contains all parameters of the AFM images, such as vibration frequency, etc.
 - `AFMmath` - S3 class that contains computed parameters, such as roughness, etc. about a particular AFM image
 
+
 ## Usage
 
-Complete descriptions for [nanoscopeAFM library functions](https://thomasgredig.github.io/nanoscopeAFM/) and examples in the [Article Vignettes](https://thomasgredig.github.io/nanoscopeAFM/articles/).
+There is a complete description for [nanoscopeAFM library functions](https://thomasgredig.github.io/nanoscopeAFM/); examples in the [Article Vignettes](https://thomasgredig.github.io/nanoscopeAFM/articles/) are also available.
 
 
 
@@ -47,6 +49,9 @@ plot(d)
 print(d)
 summary(d)
 ```
+
+More information on graphing AFM images are found in the [AFM Image Graph Type Vignette](https://thomasgredig.github.io/nanoscopeAFM/articles/AFM-graphTypes.html).
+
 
 ### AFM info
 
@@ -77,6 +82,7 @@ afmMath$Ra
 ```
 
 
+
 ## Image Analysis
 
 Several functions are available for image analysis, including:
@@ -86,6 +92,7 @@ Several functions are available for image analysis, including:
 * [Profile lines](https://thomasgredig.github.io/nanoscopeAFM/reference/AFM.linePlot.html)
 * [Roughness analysis](https://thomasgredig.github.io/nanoscopeAFM/reference/AFM.math.params.html)
 * [Height-height correlation function](https://thomasgredig.github.io/nanoscopeAFM/reference/AFM.hhcf.html)
+
 
 
 Example to extract image roughness for a series of images:
