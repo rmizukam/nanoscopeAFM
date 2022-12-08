@@ -2,6 +2,7 @@
 
 * extract force-distance spectroscopy curves with `AFM.specData()`
 * add sample spectroscopy image
+* allow GUI to select `AFM.crop()` origin
 
 # nanoscopeAFM 2.0.12
 

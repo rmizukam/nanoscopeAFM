@@ -4,14 +4,14 @@
 \alias{AFM.crop}
 \title{Crops an AFM image}
 \usage{
-AFM.crop(obj, x0 = 1, y0 = 1, width.pixels, height.pixels, verbose = FALSE)
+AFM.crop(obj, x0 = NA, y0 = NA, width.pixels, height.pixels, verbose = FALSE)
 }
 \arguments{
-\item{obj}{AFMdata object}
+\item{obj}{AFMdata object to be cropped}
 
-\item{x0}{x origin location}
+\item{x0}{x origin location in pixels, if \code{NA} use GUI to click on origin}
 
-\item{y0}{y origin location}
+\item{y0}{y origin location in pixels, if \code{NA} use GUI to click on origin}
 
 \item{width.pixels}{width of cropped image in pixels}
 
@@ -23,7 +23,15 @@ AFM.crop(obj, x0 = 1, y0 = 1, width.pixels, height.pixels, verbose = FALSE)
 returns cropped image
 }
 \description{
-Crops an AFM image
+Creates a subset of an AFM image by cropping the original
+  image into a smaller AFM image object
+}
+\examples{
+d <- AFM.artificialImage(type='calibration', width=100, height=100, verbose=FALSE)
+plot(d)
+d1 = AFM.crop(d, x0=45, y0=45, width.pixels = 50, height.pixels = 50)
+plot(d1)
+
 }
 \author{
 Thomas Gredig
