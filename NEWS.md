@@ -1,3 +1,8 @@
+# nanoscopeAFM 2.0.14
+
+* add `AFM.history()` to recreate AFM data object (reproducibility)
+* bug fixes for `AFM.crop()`
+
 # nanoscopeAFM 2.0.13
 
 * extract force-distance spectroscopy curves with `AFM.specData()`

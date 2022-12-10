@@ -24,7 +24,8 @@
 #' @export
 AFM.crop <- function(obj,
                      x0=NA,y0=NA,
-                     width.pixels, height.pixels,
+                     width.pixels=256, 
+                     height.pixels=256,
                      verbose=FALSE) {
   AFMcopy <- obj
   AFMcopy@data$z -> dat
@@ -38,18 +39,24 @@ AFM.crop <- function(obj,
     dfr = raster::rasterFromXYZ(d)
     sp::plot(dfr)
     # returns coordinates according to (x,y)
+    print("Click on crop image origin point:")
     raster::click(dfr, n=1, xy=TRUE, show=FALSE) -> xy
-    startLoc = which(d$y==xy$y[1] & d$x==xy$x[1])
-    x0 = xy$x[1]/obj@x.conv
-    y0 = xy$y[1]/obj@y.conv
+    if (is.null(xy)) { x0 = 1; y0 = 1; } else {
+      x0 = round(xy$x[1]/obj@x.conv)
+      y0 = round(xy$y[1]/obj@y.conv)
+    }
     if (verbose) { print(paste("Crop from:",x0,"/",y0,
                                " to:", x0+width.pixels,"/",y0+height.pixels)) }
-  } else {
-    startLoc = (y0-1)*yPixels + x0
-  }
+  } 
+  
+  # starting position in array
+  startLoc = (y0-1)*yPixels + x0
+  
   
   # check boundaries
   # width must be <= right border
+  if (width.pixels<2) {width.pixels = 2}
+  if (height.pixels<2) {height.pixels = 2}
   if (x0+width.pixels > xPixels) { width.pixels = xPixels - x0 }
   if (y0+height.pixels > yPixels) { height.pixels = yPixels - y0 }
 

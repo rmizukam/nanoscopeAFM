@@ -4,7 +4,14 @@
 \alias{AFM.crop}
 \title{Crops an AFM image}
 \usage{
-AFM.crop(obj, x0 = NA, y0 = NA, width.pixels, height.pixels, verbose = FALSE)
+AFM.crop(
+  obj,
+  x0 = NA,
+  y0 = NA,
+  width.pixels = 256,
+  height.pixels = 256,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{obj}{AFMdata object to be cropped}

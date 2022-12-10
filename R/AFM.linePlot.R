@@ -32,7 +32,7 @@ AFM.linePlot <- function(obj,no=1,dataOnly=FALSE) {
   ggplot(r, aes(x,z,col=as.factor(type))) +
     geom_path() +
     xlab('d (nm)') +
-    scale_color_discrete('Line No') +
+    scale_color_discrete('No') +
     theme_bw() +
     theme(legend.position = c(0.01,0.99),
           legend.justification = c(0,1))

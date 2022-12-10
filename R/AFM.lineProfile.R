@@ -78,7 +78,7 @@ AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
   }
 
   AFMcopy@history <- paste(AFMcopy@history,
-                           "AFM.lineProfile(",x1,",",y1,",",x2,",",y2,",unitPixels=T);")
+                           "AFM.lineProfile(obj,",x1.pixel,",",y1.pixel,",",x2.pixel,",",y2.pixel,",unitPixels = T);")
 
   if (verbose) print(paste("Pixels: (",x1.pixel,",",y1.pixel,") - (",x2.pixel,",",y2.pixel,")"))
 
